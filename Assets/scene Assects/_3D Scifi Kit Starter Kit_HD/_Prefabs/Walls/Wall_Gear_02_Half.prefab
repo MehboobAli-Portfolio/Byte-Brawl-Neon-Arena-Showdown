@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 423358}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Gear_02_Half
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 432580}
   - component: {fileID: 3332580}
   - component: {fileID: 2332580}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door_Right_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 432582}
   - component: {fileID: 3332582}
   - component: {fileID: 2332582}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door_Right_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 432584}
   - component: {fileID: 3332584}
   - component: {fileID: 2332584}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door_Left_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 432586}
   - component: {fileID: 3332586}
   - component: {fileID: 2332586}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door_Left_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -399,7 +399,7 @@ GameObject:
   - component: {fileID: 432588}
   - component: {fileID: 3332588}
   - component: {fileID: 2332588}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Gear_02_Half
   m_TagString: Untagged
   m_Icon: {fileID: 0}

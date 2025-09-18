@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 409182}
   - component: {fileID: 3309182}
   - component: {fileID: 2309182}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Inclined_01_CoinLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 410922}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Inclined_01_CoinLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 427742}
   - component: {fileID: 10827742}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light_Down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 427744}
   - component: {fileID: 10827744}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +337,7 @@ GameObject:
   m_Component:
   - component: {fileID: 427746}
   - component: {fileID: 10827746}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light_Down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +434,7 @@ GameObject:
   m_Component:
   - component: {fileID: 427748}
   - component: {fileID: 10827748}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light_Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -531,7 +531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 486960}
   - component: {fileID: 6586960}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +584,7 @@ GameObject:
   m_Component:
   - component: {fileID: 486962}
   - component: {fileID: 6586962}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -637,7 +637,7 @@ GameObject:
   m_Component:
   - component: {fileID: 486958}
   - component: {fileID: 6586958}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -690,7 +690,7 @@ GameObject:
   m_Component:
   - component: {fileID: 486964}
   - component: {fileID: 6586964}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -743,7 +743,7 @@ GameObject:
   m_Component:
   - component: {fileID: 486956}
   - component: {fileID: 6586956}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

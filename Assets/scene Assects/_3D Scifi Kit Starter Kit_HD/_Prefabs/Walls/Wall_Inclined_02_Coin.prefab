@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 444980}
   - component: {fileID: 10844980}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light_Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 444982}
   - component: {fileID: 10844982}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light_Down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 444984}
   - component: {fileID: 10844984}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light_Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 487512}
   - component: {fileID: 3387512}
   - component: {fileID: 2387512}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Inclined_02_Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 491248}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Inclined_02_Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}

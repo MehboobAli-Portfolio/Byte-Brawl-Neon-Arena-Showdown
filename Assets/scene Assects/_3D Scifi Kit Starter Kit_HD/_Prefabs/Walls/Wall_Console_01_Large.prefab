@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 418364}
   - component: {fileID: 10818364}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 418366}
   - component: {fileID: 10818366}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 418368}
   - component: {fileID: 10818368}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 418370}
   - component: {fileID: 10818370}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -399,7 +399,7 @@ GameObject:
   - component: {fileID: 438034}
   - component: {fileID: 3338034}
   - component: {fileID: 2338034}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Console_01_Large
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -488,7 +488,7 @@ GameObject:
   - component: {fileID: 438036}
   - component: {fileID: 3338036}
   - component: {fileID: 2338036}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Screen_C
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -577,7 +577,7 @@ GameObject:
   - component: {fileID: 438038}
   - component: {fileID: 3338038}
   - component: {fileID: 2338038}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Screen_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -666,7 +666,7 @@ GameObject:
   - component: {fileID: 438040}
   - component: {fileID: 3338040}
   - component: {fileID: 2338040}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Screen_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -753,7 +753,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 438042}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Console_01_Large
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -788,7 +788,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 453240}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Console_01_Large
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -826,7 +826,7 @@ GameObject:
   m_Component:
   - component: {fileID: 460984}
   - component: {fileID: 8260984}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sound
   m_TagString: Untagged
   m_Icon: {fileID: 0}

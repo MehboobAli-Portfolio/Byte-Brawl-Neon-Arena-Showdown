@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 407038}
   - component: {fileID: 3307038}
   - component: {fileID: 2307038}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sign_Danger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 407040}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sign_Danger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 467688}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Pipes_01_Large
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 467690}
   - component: {fileID: 3367690}
   - component: {fileID: 2367690}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Pipes_01_Large
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 498188}
   - component: {fileID: 3398184}
   - component: {fileID: 2398184}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light_SideLight_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 498184}
   - component: {fileID: 10898184}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -439,7 +439,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 498186}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light_SideLight_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}

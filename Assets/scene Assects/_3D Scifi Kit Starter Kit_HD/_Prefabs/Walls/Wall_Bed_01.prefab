@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 432752}
   - component: {fileID: 3332752}
   - component: {fileID: 2332752}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Bed_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 432754}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Bed_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

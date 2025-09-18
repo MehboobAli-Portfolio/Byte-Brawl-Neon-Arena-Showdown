@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 400000}
   - component: {fileID: 3300000}
   - component: {fileID: 2300000}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Simple_01_TurnShort_90
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400002}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Simple_01_TurnShort_90
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400004}
   - component: {fileID: 10800000}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light_Down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400006}
   - component: {fileID: 10800002}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light_Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400008}
   - component: {fileID: 10800004}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light_Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -459,7 +459,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400010}
   - component: {fileID: 10800006}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light_Down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -556,7 +556,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400012}
   - component: {fileID: 10800008}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -653,7 +653,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400014}
   - component: {fileID: 10800010}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -750,7 +750,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400016}
   - component: {fileID: 6500000}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -803,7 +803,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400018}
   - component: {fileID: 6500002}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -856,7 +856,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400020}
   - component: {fileID: 6500004}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -909,7 +909,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400022}
   - component: {fileID: 6500006}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -962,7 +962,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400024}
   - component: {fileID: 6500008}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1015,7 +1015,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400026}
   - component: {fileID: 6500010}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1068,7 +1068,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400028}
   - component: {fileID: 6500012}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1121,7 +1121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400030}
   - component: {fileID: 6500014}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1174,7 +1174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400032}
   - component: {fileID: 6500016}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1227,7 +1227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400034}
   - component: {fileID: 6500018}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1280,7 +1280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400036}
   - component: {fileID: 6500020}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1333,7 +1333,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400038}
   - component: {fileID: 6500022}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1386,7 +1386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400040}
   - component: {fileID: 6500024}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1439,7 +1439,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400042}
   - component: {fileID: 6500026}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1492,7 +1492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400044}
   - component: {fileID: 6500028}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1545,7 +1545,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400046}
   - component: {fileID: 6500030}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1598,7 +1598,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400048}
   - component: {fileID: 6500032}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1651,7 +1651,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400050}
   - component: {fileID: 6500034}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1704,7 +1704,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400052}
   - component: {fileID: 6500036}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1757,7 +1757,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400054}
   - component: {fileID: 6500038}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1810,7 +1810,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400056}
   - component: {fileID: 6500040}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1863,7 +1863,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400058}
   - component: {fileID: 6500042}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1916,7 +1916,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400060}
   - component: {fileID: 6500044}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1969,7 +1969,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400062}
   - component: {fileID: 6500046}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2022,7 +2022,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400064}
   - component: {fileID: 6500048}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2075,7 +2075,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400066}
   - component: {fileID: 6500050}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2128,7 +2128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400068}
   - component: {fileID: 6500052}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2181,7 +2181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400070}
   - component: {fileID: 6500054}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2234,7 +2234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400072}
   - component: {fileID: 6500056}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2287,7 +2287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400074}
   - component: {fileID: 6500058}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

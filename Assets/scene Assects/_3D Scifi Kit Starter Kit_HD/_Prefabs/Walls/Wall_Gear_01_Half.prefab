@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 445162}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Gear_01_Half
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 466344}
   - component: {fileID: 3366344}
   - component: {fileID: 2366344}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Gear_01_Half
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 466346}
   - component: {fileID: 3366346}
   - component: {fileID: 2366346}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 466348}
   - component: {fileID: 3366348}
   - component: {fileID: 2366348}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,7 +312,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 475898}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Num_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 475900}
   - component: {fileID: 3375902}
   - component: {fileID: 2375902}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Num_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -433,7 +433,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 475902}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Num_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -467,7 +467,7 @@ GameObject:
   - component: {fileID: 475904}
   - component: {fileID: 3375904}
   - component: {fileID: 2375904}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Num_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 427384}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Cube_01_Flat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 427386}
   - component: {fileID: 3327386}
   - component: {fileID: 2327386}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Cube_01_Flat
   m_TagString: Untagged
   m_Icon: {fileID: 0}

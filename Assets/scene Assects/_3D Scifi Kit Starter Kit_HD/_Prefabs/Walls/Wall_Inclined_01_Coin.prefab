@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 431942}
   - component: {fileID: 6531942}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ GameObject:
   m_Component:
   - component: {fileID: 431944}
   - component: {fileID: 6531944}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 437652}
   - component: {fileID: 3337652}
   - component: {fileID: 2337652}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Inclined_01_Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 452938}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Inclined_01_Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}

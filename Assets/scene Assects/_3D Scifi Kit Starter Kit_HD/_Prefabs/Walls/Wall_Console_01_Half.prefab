@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 406242}
   - component: {fileID: 8206242}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 463588}
   - component: {fileID: 3363588}
   - component: {fileID: 2363588}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Console_01_Half
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 463590}
   - component: {fileID: 3363590}
   - component: {fileID: 2363590}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Screen_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 463592}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Console_01_Half
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +349,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 463594}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_Console_01_Half
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,7 +385,7 @@ GameObject:
   m_Component:
   - component: {fileID: 476534}
   - component: {fileID: 10876534}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -482,7 +482,7 @@ GameObject:
   m_Component:
   - component: {fileID: 476536}
   - component: {fileID: 10876536}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
