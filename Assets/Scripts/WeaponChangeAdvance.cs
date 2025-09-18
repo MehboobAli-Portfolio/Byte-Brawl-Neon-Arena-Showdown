@@ -6,11 +6,13 @@ public class WeaponChangeAdvance : MonoBehaviour
 {
     public TwoBoneIKConstraint leftHand;
     public TwoBoneIKConstraint rightHand;
+    public TwoBoneIKConstraint leftHandThumb;
     public RigBuilder rig;
     public Transform[] leftTargets;
     public Transform[] rightTargets;
+    public Transform[] leftThumbTargets;
     public GameObject[] weapons;
-    private int weaponNumber = 0;
+    public int weaponNumber = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -36,6 +38,7 @@ public class WeaponChangeAdvance : MonoBehaviour
                     weapons[i].SetActive(true);
                     leftHand.data.target = leftTargets[i];
                     rightHand.data.target = rightTargets[i];
+                    leftHandThumb.data.target = leftThumbTargets[i];
                 }
                 else
                 {
