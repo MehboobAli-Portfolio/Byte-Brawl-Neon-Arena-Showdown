@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(
             rb.position +
             transform.forward * Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime +
-            transform.right * (-Input.GetAxis("Horizontal")) * -moveSpeed * Time.deltaTime
+            transform.right * Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime
         );
         anim.SetFloat("BlendV", Input.GetAxis("Vertical"));
         anim.SetFloat("BlendH", Input.GetAxis("Horizontal"));  
