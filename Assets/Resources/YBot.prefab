@@ -772,7 +772,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &619111538794270387
 Transform:
   m_ObjectHideFlags: 0
@@ -2809,6 +2809,10 @@ MonoBehaviour:
   leftHand: {fileID: 1440774280525495476}
   rightHand: {fileID: 1600159290768361486}
   leftHandThumb: {fileID: 1846069905113268479}
+  aimObjects:
+  - {fileID: 4645716362298864240}
+  - {fileID: 2213733958012406740}
+  - {fileID: 8874401763546547182}
   rig: {fileID: 44382658171163208}
   leftTargets:
   - {fileID: 5941979716563014305}
@@ -6373,7 +6377,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2007785179681122550
 Transform:
   m_ObjectHideFlags: 0
