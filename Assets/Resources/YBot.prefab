@@ -559,6 +559,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6444809726037487449}
+  - component: {fileID: 1340427450576899171}
   m_Layer: 0
   m_Name: RightHandGrip
   m_TagString: Untagged
@@ -581,6 +582,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2007785179681122550}
   m_LocalEulerAnglesHint: {x: 10.197, y: 256.94, z: 259.623}
+--- !u!114 &1340427450576899171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464813258577037416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &517185775279264750
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,13 +642,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.MultiAimConstraint
-  m_Weight: 0.2
+  m_Weight: 0.4
   m_Data:
     m_ConstrainedObject: {fileID: 7986377638765011935}
     m_SourceObjects:
       m_Length: 1
       m_Item0:
-        transform: {fileID: 0}
+        transform: {fileID: 882254996647915841}
         weight: 1
       m_Item1:
         transform: {fileID: 0}
@@ -1421,6 +1438,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8650163975691033680}
+  - component: {fileID: 360192308519956533}
   m_Layer: 0
   m_Name: mixamorig:LeftForeArm
   m_TagString: Untagged
@@ -1444,6 +1462,22 @@ Transform:
   - {fileID: 3387965375444558435}
   m_Father: {fileID: 865380657651170427}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &360192308519956533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523579477493191483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &1533116958119073675
 GameObject:
   m_ObjectHideFlags: 0
@@ -1671,6 +1705,8 @@ GameObject:
   - component: {fileID: 2878579796535312047}
   - component: {fileID: 4288669687247800305}
   - component: {fileID: -4148432684258633090}
+  - component: {fileID: 719065190304554133}
+  - component: {fileID: 6513980537186589571}
   m_Layer: 0
   m_Name: YBot
   m_TagString: Untagged
@@ -1696,6 +1732,7 @@ Transform:
   - {fileID: 2215888698452968847}
   - {fileID: 938193288953475758}
   - {fileID: 5356410669861711250}
+  - {fileID: 882254996647915841}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &9065933328513445473
@@ -2849,10 +2886,83 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 719065190304554133}
+  - {fileID: 6513980537186589571}
+  - {fileID: 8540420926321225273}
+  - {fileID: 7746117675787276266}
+  - {fileID: 1302545084311367922}
+  - {fileID: 3539946147338104783}
+  - {fileID: 3607924177969054216}
+  - {fileID: 814324208847147039}
+  - {fileID: 1340427450576899171}
+  - {fileID: 6697790776514008488}
+  - {fileID: 8830410760319220184}
+  - {fileID: 4051507264361750958}
+  - {fileID: 4822514051372845022}
+  - {fileID: 2099749774194036888}
+  - {fileID: 5210222441286677426}
+  - {fileID: 4763803076160363365}
+  - {fileID: 5098326549837517089}
+  - {fileID: 360192308519956533}
+  - {fileID: 486160561558766255}
+  - {fileID: 172968733793042206}
+  - {fileID: 1737789616158794904}
+  - {fileID: 1973440047806515648}
+  - {fileID: 1209748441282511259}
+  - {fileID: 7117448859416835096}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &719065190304554133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688985569843148529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &6513980537186589571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688985569843148529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonAnimatorView
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 1
+    SynchronizeType: 2
+    Name: Blend
+  - Type: 1
+    SynchronizeType: 2
+    Name: BlendV
+  - Type: 1
+    SynchronizeType: 2
+    Name: BlendH
+  - Type: 4
+    SynchronizeType: 0
+    Name: Hit
+  - Type: 4
+    SynchronizeType: 0
+    Name: Dead
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &1715756242857233242
 GameObject:
   m_ObjectHideFlags: 0
@@ -2862,6 +2972,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8805184764593610312}
+  - component: {fileID: 4822514051372845022}
   m_Layer: 0
   m_Name: LeftHandGrip
   m_TagString: Untagged
@@ -2884,6 +2995,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4215021017886192338}
   m_LocalEulerAnglesHint: {x: -22.407, y: 84.714, z: 81.925}
+--- !u!114 &4822514051372845022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715756242857233242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &1724039609481565734
 GameObject:
   m_ObjectHideFlags: 0
@@ -3038,6 +3165,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3387965375444558435}
+  - component: {fileID: 172968733793042206}
   m_Layer: 0
   m_Name: mixamorig:LeftHand
   m_TagString: Untagged
@@ -3065,6 +3193,22 @@ Transform:
   - {fileID: 461260409389491152}
   m_Father: {fileID: 8650163975691033680}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &172968733793042206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755595984409853508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &1761754176856852085
 GameObject:
   m_ObjectHideFlags: 0
@@ -3763,6 +3907,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5941979716563014305}
+  - component: {fileID: 6697790776514008488}
   m_Layer: 0
   m_Name: LeftHandGrip
   m_TagString: Untagged
@@ -3785,6 +3930,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2007785179681122550}
   m_LocalEulerAnglesHint: {x: -72.01, y: -29.821, z: 283.832}
+--- !u!114 &6697790776514008488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2437585446895170646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &2539188539021845659
 GameObject:
   m_ObjectHideFlags: 0
@@ -3883,6 +4044,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7989761115647291876}
+  - component: {fileID: 3607924177969054216}
   m_Layer: 0
   m_Name: mixamorig:Head
   m_TagString: Untagged
@@ -3906,6 +4068,22 @@ Transform:
   - {fileID: 5584255628952811314}
   m_Father: {fileID: 6271419660796460649}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3607924177969054216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2586652880124320540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &2713846282717657536
 GameObject:
   m_ObjectHideFlags: 0
@@ -4294,7 +4472,7 @@ MonoBehaviour:
     m_SourceObjects:
       m_Length: 1
       m_Item0:
-        transform: {fileID: 0}
+        transform: {fileID: 882254996647915841}
         weight: 1
       m_Item1:
         transform: {fileID: 0}
@@ -4339,6 +4517,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2539747713001046144}
+  - component: {fileID: 4763803076160363365}
   m_Layer: 0
   m_Name: LeftHandGrip
   m_TagString: Untagged
@@ -4361,6 +4540,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 619111538794270387}
   m_LocalEulerAnglesHint: {x: -64.968, y: -174.699, z: 183.604}
+--- !u!114 &4763803076160363365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3490094163671752412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &3680117969704317854
 GameObject:
   m_ObjectHideFlags: 0
@@ -4482,6 +4677,67 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3875731291723269854
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 882254996647915841}
+  - component: {fileID: 8540420926321225273}
+  - component: {fileID: 66508179205253078}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &882254996647915841
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3875731291723269854}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5934750785923391239}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8540420926321225273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3875731291723269854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &66508179205253078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3875731291723269854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7053cfe36366e943a5b3ab29256cd32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AimLookAtRef
 --- !u!1 &3938829486114361454
 GameObject:
   m_ObjectHideFlags: 0
@@ -4754,6 +5010,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8333345326165410539}
+  - component: {fileID: 1209748441282511259}
   m_Layer: 0
   m_Name: mixamorig:LeftHandThumb2
   m_TagString: Untagged
@@ -4777,6 +5034,22 @@ Transform:
   - {fileID: 6714582564229561104}
   m_Father: {fileID: 461260409389491152}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1209748441282511259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112452247370056964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &4126195616736827561
 GameObject:
   m_ObjectHideFlags: 0
@@ -5092,6 +5365,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6714582564229561104}
+  - component: {fileID: 7117448859416835096}
   m_Layer: 0
   m_Name: mixamorig:LeftHandThumb3
   m_TagString: Untagged
@@ -5115,6 +5389,22 @@ Transform:
   - {fileID: 1184828916011160890}
   m_Father: {fileID: 8333345326165410539}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7117448859416835096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4581809613912686210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &4622773231928490505
 GameObject:
   m_ObjectHideFlags: 0
@@ -5399,6 +5689,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 461260409389491152}
+  - component: {fileID: 1973440047806515648}
   m_Layer: 0
   m_Name: mixamorig:LeftHandThumb1
   m_TagString: Untagged
@@ -5422,6 +5713,22 @@ Transform:
   - {fileID: 8333345326165410539}
   m_Father: {fileID: 3387965375444558435}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1973440047806515648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4769086947505937386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &4836849128569665151
 GameObject:
   m_ObjectHideFlags: 0
@@ -6165,6 +6472,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1330553543975709512}
+  - component: {fileID: 7746117675787276266}
   m_Layer: 0
   m_Name: mixamorig:Spine
   m_TagString: Untagged
@@ -6188,6 +6496,22 @@ Transform:
   - {fileID: 7986377638765011935}
   m_Father: {fileID: 2215888698452968847}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7746117675787276266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5611931045402209958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &5615193648267471010
 GameObject:
   m_ObjectHideFlags: 0
@@ -6335,6 +6659,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7986377638765011935}
+  - component: {fileID: 1302545084311367922}
   m_Layer: 0
   m_Name: mixamorig:Spine1
   m_TagString: Untagged
@@ -6359,6 +6684,22 @@ Transform:
   - {fileID: 1939229931267889989}
   m_Father: {fileID: 1330553543975709512}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1302545084311367922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5639521381978970081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &5711902887573491782
 GameObject:
   m_ObjectHideFlags: 0
@@ -6652,6 +6993,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4758784726789193961}
+  - component: {fileID: 1737789616158794904}
   m_Layer: 0
   m_Name: mixamorig:RightHand
   m_TagString: Untagged
@@ -6679,6 +7021,22 @@ Transform:
   - {fileID: 624448765291522820}
   m_Father: {fileID: 3255367628736993470}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1737789616158794904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5733952952096078830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &5749855178214844151
 GameObject:
   m_ObjectHideFlags: 0
@@ -6688,6 +7046,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 865380657651170427}
+  - component: {fileID: 3539946147338104783}
   m_Layer: 0
   m_Name: mixamorig:LeftArm
   m_TagString: Untagged
@@ -6711,6 +7070,22 @@ Transform:
   - {fileID: 8650163975691033680}
   m_Father: {fileID: 9079188950247398648}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3539946147338104783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5749855178214844151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &5788753006159063483
 GameObject:
   m_ObjectHideFlags: 0
@@ -6720,6 +7095,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 623990584686524834}
+  - component: {fileID: 2099749774194036888}
   m_Layer: 0
   m_Name: ThumbGrip
   m_TagString: Untagged
@@ -6742,6 +7118,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4215021017886192338}
   m_LocalEulerAnglesHint: {x: 39.973, y: -395.294, z: 347.155}
+--- !u!114 &2099749774194036888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5788753006159063483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &5836716521302055210
 GameObject:
   m_ObjectHideFlags: 0
@@ -6751,6 +7143,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 993663340906057217}
+  - component: {fileID: 814324208847147039}
   m_Layer: 0
   m_Name: mixamorig:RightArm
   m_TagString: Untagged
@@ -6774,6 +7167,22 @@ Transform:
   - {fileID: 3255367628736993470}
   m_Father: {fileID: 7260493634825463421}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &814324208847147039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5836716521302055210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &5930399657130195453
 GameObject:
   m_ObjectHideFlags: 0
@@ -7521,6 +7930,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8128251732843009692}
+  - component: {fileID: 4051507264361750958}
   m_Layer: 0
   m_Name: RightHandGrip
   m_TagString: Untagged
@@ -7543,6 +7953,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4215021017886192338}
   m_LocalEulerAnglesHint: {x: 12.067, y: 260.849, z: 270.207}
+--- !u!114 &4051507264361750958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7226523096318100505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &7533448280602804812
 GameObject:
   m_ObjectHideFlags: 0
@@ -7703,6 +8129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3255367628736993470}
+  - component: {fileID: 486160561558766255}
   m_Layer: 0
   m_Name: mixamorig:RightForeArm
   m_TagString: Untagged
@@ -7726,6 +8153,22 @@ Transform:
   - {fileID: 4758784726789193961}
   m_Father: {fileID: 993663340906057217}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &486160561558766255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7903484530917855320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &7974006322537272418
 GameObject:
   m_ObjectHideFlags: 0
@@ -7887,6 +8330,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3851570224842347378}
+  - component: {fileID: 5210222441286677426}
   m_Layer: 0
   m_Name: RightHandGrip
   m_TagString: Untagged
@@ -7909,6 +8353,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 619111538794270387}
   m_LocalEulerAnglesHint: {x: 9.684, y: 95.93, z: 257.502}
+--- !u!114 &5210222441286677426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8060042641906170533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &8178035335225994886
 GameObject:
   m_ObjectHideFlags: 0
@@ -8038,6 +8498,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2661318856547614395}
+  - component: {fileID: 5098326549837517089}
   m_Layer: 0
   m_Name: ThumbGrip
   m_TagString: Untagged
@@ -8060,6 +8521,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 619111538794270387}
   m_LocalEulerAnglesHint: {x: -68.187, y: -455.062, z: 446.945}
+--- !u!114 &5098326549837517089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8565203594523734064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &8608297051082124090
 GameObject:
   m_ObjectHideFlags: 0
@@ -8407,6 +8884,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6398907979834341573}
+  - component: {fileID: 8830410760319220184}
   m_Layer: 0
   m_Name: ThumbGrip
   m_TagString: Untagged
@@ -8429,6 +8907,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2007785179681122550}
   m_LocalEulerAnglesHint: {x: 14.281, y: -383.924, z: 352.954}
+--- !u!114 &8830410760319220184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9069522102396160549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &9090848426581238887
 GameObject:
   m_ObjectHideFlags: 0
@@ -8511,7 +9005,7 @@ MonoBehaviour:
     m_SourceObjects:
       m_Length: 1
       m_Item0:
-        transform: {fileID: 0}
+        transform: {fileID: 882254996647915841}
         weight: 1
       m_Item1:
         transform: {fileID: 0}

@@ -15,7 +15,7 @@ public class LookAt : MonoBehaviour
     {
         screenPosition = Input.mousePosition;
         screenPosition.z = 3f;
-        screenPosition.x -= 6;
+        //screenPosition.x -= 6;
 
         worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
         transform.position = worldPosition;
