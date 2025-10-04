@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.Animations.Rigging;
 using Cinemachine;
 using Photon.Pun;
+
 public class WeaponChangeAdvance : MonoBehaviour
 {
     public TwoBoneIKConstraint leftHand;
@@ -21,6 +22,7 @@ public class WeaponChangeAdvance : MonoBehaviour
     public Transform[] leftThumbTargets;
     public GameObject[] weapons;
     public int weaponNumber = 0;
+    private GameObject testForWeapons;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,7 +40,12 @@ public class WeaponChangeAdvance : MonoBehaviour
         {
             this.gameObject.GetComponent<PlayerMovement>().enabled = false;
         }
-        
+        testForWeapons= GameObject.Find("Weapon1PickUp(Clone)");
+        if (testForWeapons == null)
+        {
+            var spawner = GameObject.Find("SpawnScript");
+            spawner.GetComponent<SpawnCharacters>().SpawnWeaponStart();
+        }
     }
     /*void SetLookAt()
     {

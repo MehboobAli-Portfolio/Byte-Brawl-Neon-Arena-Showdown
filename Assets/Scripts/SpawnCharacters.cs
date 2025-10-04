@@ -3,7 +3,10 @@ using Photon.Pun;
 public class SpawnCharacters : MonoBehaviour
 {
     public GameObject character;
-    public Transform[] spawnPoints; 
+    public Transform[] spawnPoints;
+    public GameObject[] Weapons;
+    public Transform[] weaponSpawnPoints;
+    public float weaponReSpawnTime = 10f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,5 +20,12 @@ public class SpawnCharacters : MonoBehaviour
     void Update()
     {
         
+    }
+    public void SpawnWeaponStart()
+    {
+        for(int i = 0; i < Weapons.Length; i++)
+        {
+            PhotonNetwork.Instantiate(Weapons[i].name, weaponSpawnPoints[i].position, weaponSpawnPoints[i].rotation);   
+        }
     }
 }
