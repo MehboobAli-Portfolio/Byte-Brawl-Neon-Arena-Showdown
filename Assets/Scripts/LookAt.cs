@@ -1,14 +1,18 @@
 using UnityEngine;
 using System.Collections;
+using Photon.Pun;
+using UnityEngine.UI;
 public class LookAt : MonoBehaviour
 {
     private Vector3 worldPosition;
     private Vector3 screenPosition;
     public GameObject crosshair;
+    public Text nickNameText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Cursor.visible = false;
+        nickNameText.text = PhotonNetwork.LocalPlayer.NickName;
     }
     // Update is called once per frame
     void FixedUpdate()
