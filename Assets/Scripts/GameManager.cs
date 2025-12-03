@@ -1,6 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     public InputField playerNickName;
@@ -36,9 +37,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected to server!");
-        PhotonNetwork.JoinRandomRoom();
+        SceneManager.LoadScene("Lobby");
+        //PhotonNetwork.JoinRandomRoom();
     }   
-    public override void OnJoinedRoom()
+    /*public override void OnJoinedRoom()
     {
         PhotonNetwork.LoadLevel("Floor Layout");
     }
@@ -48,5 +50,5 @@ public class GameManager : MonoBehaviourPunCallbacks
         //PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions { MaxPlayers = 4 });
         //base.OnJoinRandomFailed(returnCode, message);
         PhotonNetwork.CreateRoom("Arena1");
-    }
+    }*/
 }
