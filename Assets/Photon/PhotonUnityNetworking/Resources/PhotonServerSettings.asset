@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f3758f8f58fdef43803eb9be1df0608, type: 3}
   m_Name: PhotonServerSettings
-  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.ServerSettings
+  m_EditorClassIdentifier: 
   AppSettings:
     AppIdRealtime: 859b0ab5-f931-4540-9ddf-73479b0ad1de
     AppIdFusion: 
@@ -28,7 +28,7 @@ MonoBehaviour:
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: uae
+  DevRegion: eu
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
@@ -40,9 +40,36 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - PlayPickupAudio
+  - DestroyPickup
   - TurnOff
+  - RespawnWeapons
   - TurnOn
+  - ChangeWeapon
   - Change
+  - ChangeColor
+  - RemoveButton
+  - ChangeC
+  - ButtonGone
+  - AssignColor
+  - SelectThis
+  - SelectedColor
+  - ReduceHealth
+  - TimeCountDown
+  - Count
+  - RemoveName
+  - RemoveMe
+  - Damage
+  - PlaySound
+  - GunMuzzleFlash
+  - MuzzleFlashOff
+  - DeliverDamage
+  - GunDamage
+  - DisplayMessage
+  - PassNames
+  - MessageOff
+  - ReadyToRespawn
+  - ResetForReplay
+  - Rotator
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1
   DevRegionSetOnce: 1

@@ -14,10 +14,6 @@ namespace Photon.Pun.Demo.Procedural
     public class Cluster : MonoBehaviourPunCallbacks
     {
         private string propertiesKey;
-        public string ClusterPropKey
-        {
-            get { return this.propertiesKey; }
-        }
 
         private Dictionary<int, float> propertiesValue;
 
@@ -39,7 +35,7 @@ namespace Photon.Pun.Demo.Procedural
         /// </summary>
         private void Start()
         {
-            propertiesKey = "cl_" + ClusterId;
+            propertiesKey = "Cluster " + ClusterId;
         }
 
         #endregion
@@ -60,13 +56,7 @@ namespace Photon.Pun.Demo.Procedural
         /// Gets called before a new world can be generated.
         /// Destroys each Block from this Cluster and removes the data stored in the Custom Room Properties.
         /// </summary>
-        /// <remarks>
-        /// To clean up many Clusters from the room properties, the changes can be accumulated on a higher level,
-        /// instead of removing each Cluster individually. If that is the case, set removeClusterFromRoomProperties
-        /// to false and handle Cluster removal in bulk.
-        /// Example: WorldGenerator.DestroyWorld does this.
-        /// </remarks>
-        public void DestroyCluster(bool removeClusterFromRoomProperties = true)
+        public void DestroyCluster()
         {
             foreach (GameObject block in Blocks.Values)
             {
@@ -75,7 +65,7 @@ namespace Photon.Pun.Demo.Procedural
 
             Blocks.Clear();
 
-            if (PhotonNetwork.IsMasterClient && removeClusterFromRoomProperties)
+            if (PhotonNetwork.IsMasterClient)
             {
                 RemoveClusterFromRoomProperties();
             }

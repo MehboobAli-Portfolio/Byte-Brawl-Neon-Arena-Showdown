@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-public class DisplayColor : MonoBehaviour
+using UnityEngine.UI;
+using Photon.Realtime;
+
+public class DisplayColor : MonoBehaviourPunCallbacks
 {
     public int[] buttonNumbers;
     public int[] viewID;
     public Color32[] colors;
+
     public void ChooseColor()
     {
-        GetComponent<PhotonView>().RPC("AssignColor",
-        RpcTarget.AllBuffered);
+        GetComponent<PhotonView>().RPC("AssignColor",RpcTarget.AllBuffered);
     }
     [PunRPC]
     void AssignColor()
@@ -23,4 +26,6 @@ public class DisplayColor : MonoBehaviour
             }
         }
     }
+
+
 }

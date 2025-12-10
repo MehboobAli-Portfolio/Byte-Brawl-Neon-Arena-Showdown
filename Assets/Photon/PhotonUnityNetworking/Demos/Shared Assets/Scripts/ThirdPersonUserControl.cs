@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace StandardAssets.Characters.ThirdPerson.PunDemos
+namespace UnityStandardAssets.Characters.ThirdPerson.PunDemos
 {
     [RequireComponent(typeof (ThirdPersonCharacter))]
     public class ThirdPersonUserControl : MonoBehaviour

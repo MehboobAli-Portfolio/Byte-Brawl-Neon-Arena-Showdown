@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6213316170909792389
+--- !u!1 &4001509272368148876
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,53 +8,53 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 190064432083726526}
-  - component: {fileID: 713082211901665623}
-  - component: {fileID: 8881331768843114342}
-  - component: {fileID: 2057413034657720910}
-  - component: {fileID: 7103474908299019736}
-  - component: {fileID: 7194665835017574938}
-  - component: {fileID: 8892405492408684446}
-  - component: {fileID: -3833002334142206194}
-  - component: {fileID: -5804412654798575383}
-  - component: {fileID: -7620804940330257227}
+  - component: {fileID: 5161392474575031198}
+  - component: {fileID: 8519161079097049245}
+  - component: {fileID: 7239346183286625716}
+  - component: {fileID: 5072555899356267931}
+  - component: {fileID: 8061838849832326726}
+  - component: {fileID: 3475653417617448625}
+  - component: {fileID: 525616433151471828}
+  - component: {fileID: 8598459613904000255}
+  - component: {fileID: 3680024422242646111}
+  - component: {fileID: 8353308409357675936}
   m_Layer: 0
-  m_Name: Weapon1PickUp
+  m_Name: Weapon1Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &190064432083726526
+--- !u!4 &5161392474575031198
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6213316170909792389}
+  m_GameObject: {fileID: 4001509272368148876}
   serializedVersion: 2
   m_LocalRotation: {x: 0.007963711, y: 0, z: -0, w: 0.9999683}
-  m_LocalPosition: {x: 16.32, y: 2.016, z: 19.820766}
+  m_LocalPosition: {x: -39.128, y: 3, z: 20.28}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &713082211901665623
+--- !u!33 &8519161079097049245
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6213316170909792389}
+  m_GameObject: {fileID: 4001509272368148876}
   m_Mesh: {fileID: 149342276603755966, guid: 883aa99ae2005f340b9b0a89121fd0ec, type: 3}
---- !u!23 &8881331768843114342
+--- !u!23 &7239346183286625716
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6213316170909792389}
+  m_GameObject: {fileID: 4001509272368148876}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -96,18 +96,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2057413034657720910
+--- !u!114 &5072555899356267931
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6213316170909792389}
+  m_GameObject: {fileID: 4001509272368148876}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonView
+  m_EditorClassIdentifier: 
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
@@ -115,17 +115,17 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: -5804412654798575383}
+  - {fileID: 3680024422242646111}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!82 &7103474908299019736
+--- !u!82 &8061838849832326726
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6213316170909792389}
+  m_GameObject: {fileID: 4001509272368148876}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -216,13 +216,13 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!65 &7194665835017574938
+--- !u!65 &3475653417617448625
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6213316170909792389}
+  m_GameObject: {fileID: 4001509272368148876}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -237,13 +237,13 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.270855, y: 1.0777119, z: 3.3056998}
   m_Center: {x: -0.0276765, y: -0.14933799, z: 0.007466018}
---- !u!54 &8892405492408684446
+--- !u!54 &525616433151471828
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6213316170909792389}
+  m_GameObject: {fileID: 4001509272368148876}
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
@@ -264,46 +264,46 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-3833002334142206194
+--- !u!114 &8598459613904000255
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6213316170909792389}
+  m_GameObject: {fileID: 4001509272368148876}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e327d617ee920b8449a7c0e38076050b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4781bf27cecc6eb449579dbca0545952, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponRotate
-  rotationSpeed: 20
---- !u!114 &-5804412654798575383
+  m_EditorClassIdentifier: 
+  speed: 20
+--- !u!114 &3680024422242646111
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6213316170909792389}
+  m_GameObject: {fileID: 4001509272368148876}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &-7620804940330257227
+--- !u!114 &8353308409357675936
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6213316170909792389}
+  m_GameObject: {fileID: 4001509272368148876}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1efe0fbbbde91048abe3791c42e65c6, type: 3}
+  m_Script: {fileID: 11500000, guid: ea3d1dd2469ae7a48a0e2c0fa6e7c41e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponPickups
-  respawnTime: 30
+  m_EditorClassIdentifier: 
+  respawnTime: 60
   weaponType: 1

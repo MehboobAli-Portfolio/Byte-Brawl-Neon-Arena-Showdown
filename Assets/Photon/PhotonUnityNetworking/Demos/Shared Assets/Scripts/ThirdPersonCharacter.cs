@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace StandardAssets.Characters.ThirdPerson.PunDemos
+namespace UnityStandardAssets.Characters.ThirdPerson.PunDemos
 {
 	[RequireComponent(typeof(Rigidbody))]
 	[RequireComponent(typeof(CapsuleCollider))]

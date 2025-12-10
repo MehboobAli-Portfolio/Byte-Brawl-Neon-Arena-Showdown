@@ -31,12 +31,8 @@ namespace Photon.Pun.Demo.Hub
 	        {
 	            if (instance == null)
 	            {
-                    #if UNITY_6000_0_OR_NEWER
-                    instance = FindFirstObjectByType<ToDemoHubButton>();
-                    #else
 					instance = FindObjectOfType(typeof (ToDemoHubButton)) as ToDemoHubButton;
-                    #endif
-                }
+	            }
 
 	            return instance;
 	        }

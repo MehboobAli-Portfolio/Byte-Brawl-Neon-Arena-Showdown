@@ -1803,10 +1803,7 @@ namespace Photon.Pun
             PhotonView view = GetPhotonView(viewID);
             if (view == null)
             {
-                if (PhotonNetwork.LogLevel >= PunLogLevel.Informational)
-                {
-                    Debug.LogWarning("Received OnSerialization for view ID " + viewID + ". We have no such PhotonView! Ignore this if you're joining or leaving a room. State: " + NetworkingClient.State);
-                }
+                Debug.LogWarning("Received OnSerialization for view ID " + viewID + ". We have no such PhotonView! Ignore this if you're joining or leaving a room. State: " + NetworkingClient.State);
                 return;
             }
 
@@ -2556,7 +2553,7 @@ namespace Photon.Pun
                 bool connects = PhotonNetwork.NetworkingClient.ConnectToRegionMaster(_finalDevRegion);
                 if (!connects)
                 {
-                    Debug.LogError("PUN could not ConnectToRegionMaster successfully. Please check error messages.");
+                    PhotonNetwork.NetworkingClient.Disconnect(DisconnectCause.Exception);
                 }
                 return;
             }
@@ -2567,7 +2564,7 @@ namespace Photon.Pun
                 bool connects = PhotonNetwork.NetworkingClient.ConnectToRegionMaster(regionHandler.BestRegion.Code);
                 if (!connects)
                 {
-                    Debug.LogError("PUN could not ConnectToRegionMaster successfully. Please check error messages.");
+                    PhotonNetwork.NetworkingClient.Disconnect(DisconnectCause.Exception);
                 }
             }
         }

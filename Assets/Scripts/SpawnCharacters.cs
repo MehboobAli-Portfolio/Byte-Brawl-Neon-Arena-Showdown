@@ -1,31 +1,38 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+
 public class SpawnCharacters : MonoBehaviour
 {
     public GameObject character;
     public Transform[] spawnPoints;
-    public GameObject[] Weapons;
+    public GameObject[] weapons;
     public Transform[] weaponSpawnPoints;
-    public float weaponReSpawnTime = 10f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public float weaponRespawnTime = 10;
+
+    // Start is called before the first frame update
     void Start()
     {
-        if (PhotonNetwork.IsConnected)
+       if (PhotonNetwork.IsConnected)
         {
+            
             PhotonNetwork.Instantiate(character.name, spawnPoints[PhotonNetwork.CurrentRoom.PlayerCount - 1].position, spawnPoints[PhotonNetwork.CurrentRoom.PlayerCount - 1].rotation);
-        }
+		}
+    }
+	
+	// Update is called once per frame
+	void Update()
+    {
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SpawnWeaponsStart()
     {
-        
-    }
-    public void SpawnWeaponStart()
-    {
-        for(int i = 0; i < Weapons.Length; i++)
+        for (int i = 0; i < weapons.Length; i++)
         {
-            PhotonNetwork.Instantiate(Weapons[i].name, weaponSpawnPoints[i].position, weaponSpawnPoints[i].rotation);   
+            PhotonNetwork.Instantiate(weapons[i].name, weaponSpawnPoints[i].position, weaponSpawnPoints[i].rotation);
         }
-    }
+    }    
+    
 }

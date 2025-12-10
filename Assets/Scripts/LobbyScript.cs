@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
@@ -12,53 +14,54 @@ public class LobbyScript : MonoBehaviourPunCallbacks
     TypedLobby Survival = new TypedLobby("Survival", LobbyType.Default);
 
     public Text roomNumber;
-    public string LevelName = "";
+    private string levelName = "";
 
-    public void BackToMainMenu()
+	public void BackToMenu()
     {
+		PhotonNetwork.Disconnect();
         SceneManager.LoadScene("MainMenu");
     }
 
     public void JoinLobbyKOTH()
     {
-        LevelName= "Floor Layout";
+        levelName = "Floor";
         PhotonNetwork.JoinLobby(KOTH);
     }
 
     public void JoinLobbyTDM()
     {
-        LevelName = "Floor Layout";
+        levelName = "Floor";
         PhotonNetwork.JoinLobby(TDM);
     }
 
     public void JoinLobbyCTB()
     {
-        LevelName = "Floor Layout";
+        levelName = "Floor";
         PhotonNetwork.JoinLobby(CTB);
     }
 
     public void JoinLobbySurvival()
     {
-        LevelName = "Floor Layout";
+        levelName = "Floor";
         PhotonNetwork.JoinLobby(Survival);
     }
 
     public override void OnJoinedLobby()
-    {
-        PhotonNetwork.JoinRandomRoom();
-    }
+	{
+		PhotonNetwork.JoinRandomRoom();
+	}
 
-    public override void OnJoinRandomFailed(short returnCode, string message)
-    {
+	public override void OnJoinRandomFailed(short returnCode, string message)
+	{
         Debug.Log("Join Random Room Failed. Creating a new room...");
         RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 6;
-        PhotonNetwork.CreateRoom("Arena" + Random.Range(1, 1000), roomOptions);
-    }
+		roomOptions.MaxPlayers = 6;
+		PhotonNetwork.CreateRoom("Arena" + Random.Range(1, 1000), roomOptions);
+	}
 
-    public override void OnJoinedRoom()
-    {
+	public override void OnJoinedRoom()
+	{
         roomNumber.text = PhotonNetwork.CurrentRoom.Name;
-        PhotonNetwork.LoadLevel(LevelName);
-    }
+        PhotonNetwork.LoadLevel(levelName);
+	}
 }

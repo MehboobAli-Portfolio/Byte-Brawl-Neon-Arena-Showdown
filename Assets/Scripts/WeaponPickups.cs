@@ -6,22 +6,23 @@ using Photon.Pun;
 public class WeaponPickups : MonoBehaviour
 {
     private AudioSource audioPlayer;
-    public float respawnTime = 5f;
-    public int weaponType=1;
+    public float respawnTime = 5;
+    public int weaponType = 1;
 
+    // Start is called before the first frame update
     void Start()
     {
-        audioPlayer = GetComponent<AudioSource>();
+        audioPlayer = GetComponent<AudioSource>(); 
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
+	private void OnTriggerEnter(Collider other)
+	{
         if (other.CompareTag("Player"))
         {
             this.GetComponent<PhotonView>().RPC("PlayPickupAudio", RpcTarget.All);
             this.GetComponent<PhotonView>().RPC("TurnOff", RpcTarget.All);
         }
-    }
+	}
 
     [PunRPC]
     void PlayPickupAudio()
@@ -43,14 +44,14 @@ public class WeaponPickups : MonoBehaviour
         else
         {
             this.transform.GetChild(0).gameObject.SetActive(false);
-            this.transform.gameObject.GetComponent<Collider>().enabled = false;
-        }
+			this.transform.gameObject.GetComponent<Collider>().enabled = false;
+		}
         StartCoroutine(WaitToRespawn());
-    }
+	}
 
-    [PunRPC]
-    void TurnOn()
-    {
+	[PunRPC]
+	void TurnOn()
+	{
         if (weaponType == 1)
         {
             this.transform.gameObject.GetComponent<Renderer>().enabled = true;
@@ -58,14 +59,15 @@ public class WeaponPickups : MonoBehaviour
         }
         else
         {
-            this.transform.GetChild(0).gameObject.SetActive(true);
-            this.transform.gameObject.GetComponent<Collider>().enabled = true;
-        }
-    }
+			this.transform.GetChild(0).gameObject.SetActive(true);
+			this.transform.gameObject.GetComponent<Collider>().enabled = true;
+		}
+	}
 
-    IEnumerator WaitToRespawn()
+
+	IEnumerator WaitToRespawn()
     {
         yield return new WaitForSeconds(respawnTime);
-        this.GetComponent<PhotonView>().RPC("TurnOn", RpcTarget.All);
-    }
+		this.GetComponent<PhotonView>().RPC("TurnOn", RpcTarget.All);
+	}
 }
