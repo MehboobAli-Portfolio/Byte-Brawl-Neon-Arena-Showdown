@@ -9,12 +9,6 @@ public class LookAt : MonoBehaviour
     private Vector3 worldPosition;
     private Vector3 screenPosition;
     public GameObject crosshair;
-    public Text nickNameText;
-    void Start()
-    {
-        //Cursor.visible = false;
-        nickNameText.text = PhotonNetwork.LocalPlayer.NickName;
-    }
     
     // Update is called once per frame
     void FixedUpdate()
