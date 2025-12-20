@@ -2824,6 +2824,11 @@ MonoBehaviour:
   - {fileID: 5461843319225150224}
   - {fileID: 1179301265420185147}
   - {fileID: 9102837808016126221}
+  weaponIcons:
+  - {fileID: 21300000, guid: 9fe12b833e400cf40abd4522e7858c1e, type: 3}
+  - {fileID: 21300000, guid: 625995e602cebef4abea0435ec5e8f6b, type: 3}
+  - {fileID: 21300000, guid: b556373108cb08342b9259f5608842aa, type: 3}
+  AmmoAmts: 0a000000fa0000005a000000
 --- !u!114 &3632175782130527337
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -30,10 +30,17 @@ public class WeaponChangeAdvanced : MonoBehaviour
     private int weaponNumber = 0;
     private GameObject testForWeapons;
 
+    private Image weaponIcon;
+    private Text ammoAmtText;
+    public Sprite[] weaponIcons;
+    public int[] AmmoAmts;
+
     // Start is called before the first frame update
     void Start()
 	{
-		camObject = GameObject.Find("PlayerCam");
+        weaponIcon = GameObject.Find("WeaponUI").GetComponent<Image>();
+        ammoAmtText = GameObject.Find("AmmoAmt").GetComponent<Text>();
+        camObject = GameObject.Find("PlayerCam");
 		//aimTarget = GameObject.Find("AimRef").transform;
 		if (this.gameObject.GetComponent<PhotonView>().IsMine == true)
         {
@@ -66,6 +73,8 @@ public class WeaponChangeAdvanced : MonoBehaviour
             this.GetComponent<PhotonView>().RPC("Change", RpcTarget.AllBuffered);
             if (weaponNumber > weapons.Length - 1)
             {
+                weaponIcon.GetComponent<Image>().sprite= weaponIcons[0];
+                ammoAmtText.text = AmmoAmts[0].ToString();
                 weaponNumber = 0;
             }
             for (int i = 0; i < weapons.Length; i++)
@@ -73,6 +82,8 @@ public class WeaponChangeAdvanced : MonoBehaviour
                 weapons[i].SetActive(false);
             }
             weapons[weaponNumber].SetActive(true);
+            weaponIcon.GetComponent<Image>().sprite = weaponIcons[weaponNumber];
+            ammoAmtText.text = AmmoAmts[weaponNumber].ToString();
             leftHand.data.target = leftTargets[weaponNumber];
             rightHand.data.target = rightTargets[weaponNumber];
             leftThumb.data.target = thumbTargets[weaponNumber];
@@ -92,7 +103,6 @@ public class WeaponChangeAdvanced : MonoBehaviour
 		}
 		for (int i = 0; i < weapons.Length; i++)
 		{
-
 			weapons[i].SetActive(false);
 		}
 		weapons[weaponNumber].SetActive(true);
