@@ -12,10 +12,34 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     public Color32[] colors;
 
     private GameObject namesObject;
+    private GameObject waitForPlayers;
+
     private void Start()
     {
         namesObject = GameObject.Find("NamesBG");
+        waitForPlayers = GameObject.Find("WaitingBG");
     }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+           if(GetComponent<PhotonView>().IsMine == true && waitForPlayers.activeInHierarchy==false)
+           {
+                RemoveData();
+                RoomExit();
+           }
+        }
+    }
+    void RemoveData()
+    {
+        GetComponent<PhotonView>().RPC("RemoveMe",RpcTarget.AllBuffered);
+
+    }
+    void RoomExit()
+    {
+        StartCoroutine(GetReadyToLeave());
+    }
+
     public void ChooseColor()
     {
         GetComponent<PhotonView>().RPC("AssignColor",RpcTarget.AllBuffered);
@@ -34,6 +58,25 @@ public class DisplayColor : MonoBehaviourPunCallbacks
             }
         }
     }
+    [PunRPC]
+    void RemoveMe()
+    {
+        for (int i = 0; i < namesObject.gameObject.GetComponent<NickNameScript>().names.Length; i++)
+        {
+            if (this.GetComponent<PhotonView>().Owner.NickName==namesObject.GetComponent<NickNameScript>().names[i].text)
+            {
+                namesObject.GetComponent<NickNameScript>().names[i].gameObject.SetActive(false);
+                namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.SetActive(false);
+            }
+        }
+    }
+    IEnumerator GetReadyToLeave()
+    {
+        yield return new WaitForSeconds(1.0f);
+        namesObject.GetComponent<NickNameScript>().Leaving();
+        Cursor.visible = true;
+        PhotonNetwork.LeaveRoom();
 
+    }
 
 }
