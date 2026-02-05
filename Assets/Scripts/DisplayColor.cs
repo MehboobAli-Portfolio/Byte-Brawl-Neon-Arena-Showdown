@@ -14,6 +14,8 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     private GameObject namesObject;
     private GameObject waitForPlayers;
 
+    public AudioClip[] gunShotSounds;
+
     private void Start()
     {
         namesObject = GameObject.Find("NamesBG");
@@ -44,6 +46,24 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     {
         GetComponent<PhotonView>().RPC("AssignColor",RpcTarget.AllBuffered);
     }
+    public void PlayGunshot(string name,int weaponNumber)
+    {
+        GetComponent<PhotonView>().RPC("PlayGunSound",RpcTarget.All,name,weaponNumber);
+    }
+    [PunRPC]
+    void PlayGunSound(string name,int weaponNumber)
+    {
+        for (int i = 0; i < namesObject.GetComponent<NickNameScript>().names.Length; i++)
+        {
+            if (name == this.GetComponent<PhotonView>().Owner.NickName)
+            {
+                GetComponent<AudioSource>().clip = gunShotSounds[weaponNumber];
+                GetComponent<AudioSource>().Play();
+            }
+        }
+        
+    }
+
     [PunRPC]
     void AssignColor()
     {
@@ -78,5 +98,4 @@ public class DisplayColor : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
 
     }
-
 }

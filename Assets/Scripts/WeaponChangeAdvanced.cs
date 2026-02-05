@@ -34,7 +34,7 @@ public class WeaponChangeAdvanced : MonoBehaviour
     private Text ammoAmtText;
     public Sprite[] weaponIcons;
     public int[] AmmoAmts;
-
+    public GameObject[] muzzleFlash;
     // Start is called before the first frame update
     void Start()
 	{
@@ -66,7 +66,11 @@ public class WeaponChangeAdvanced : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(Input.GetMouseButtonDown(0) && this.gameObject.GetComponent<PhotonView>().IsMine)
+        {
+            GetComponent<DisplayColor>().PlayGunshot(GetComponent<PhotonView>().Owner.NickName,weaponNumber);
+            this.GetComponent<PhotonView>().RPC("GunMuzzleFlash",RpcTarget.All);
+        }
         if (Input.GetMouseButtonDown(1) && this.gameObject.GetComponent<PhotonView>().IsMine)
         {
             //weaponNumber++;
@@ -91,9 +95,14 @@ public class WeaponChangeAdvanced : MonoBehaviour
         }
     }
 
-    
+    [PunRPC]
+    public void GunMuzzleFlash()
+    {
+        muzzleFlash[weaponNumber].SetActive(true);
+        StartCoroutine(MuzzleOff());
+    }
 
-	[PunRPC]
+    [PunRPC]
 	public void Change()
 	{
 		weaponNumber++;
@@ -111,4 +120,14 @@ public class WeaponChangeAdvanced : MonoBehaviour
 		leftThumb.data.target = thumbTargets[weaponNumber];
 		rig.Build();
 	}
+    IEnumerator MuzzleOff()
+    {
+        yield return new WaitForSeconds(0.03f);
+        this.GetComponent<PhotonView>().RPC("MuzzleFlashOff",RpcTarget.All);
+    }
+    [PunRPC]
+    public void MuzzleFlashOff()
+    {
+        muzzleFlash[weaponNumber].SetActive(false);
+    }
 }
