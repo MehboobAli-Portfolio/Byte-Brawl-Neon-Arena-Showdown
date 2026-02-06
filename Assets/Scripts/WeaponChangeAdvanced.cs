@@ -35,6 +35,10 @@ public class WeaponChangeAdvanced : MonoBehaviour
     public Sprite[] weaponIcons;
     public int[] AmmoAmts;
     public GameObject[] muzzleFlash;
+    private string shooterName;
+    private string gotShootName;
+    public float[] damageAmts;
+
     // Start is called before the first frame update
     void Start()
 	{
@@ -70,6 +74,23 @@ public class WeaponChangeAdvanced : MonoBehaviour
         {
             GetComponent<DisplayColor>().PlayGunshot(GetComponent<PhotonView>().Owner.NickName,weaponNumber);
             this.GetComponent<PhotonView>().RPC("GunMuzzleFlash",RpcTarget.All);
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            this.gameObject.layer=LayerMask.NameToLayer("Ignore Raycast");
+            if (Physics.Raycast(ray, out hit, 500f))
+            {
+                if (hit.transform.gameObject.GetComponent<PhotonView>() != null)
+                {
+                    gotShootName = hit.transform.gameObject.GetComponent<PhotonView>().Owner.NickName;
+                }
+                if(hit.transform.gameObject.GetComponent<DisplayColor>() != null)
+                {
+                    hit.transform.gameObject.GetComponent<DisplayColor>().DeliverDamage(gotShootName, damageAmts[weaponNumber]);
+                }
+                shooterName = GetComponent<PhotonView>().Owner.NickName;
+                Debug.Log(gotShootName + "got hit by" + shooterName);
+            }
+            this.gameObject.layer = LayerMask.NameToLayer("Default");
         }
         if (Input.GetMouseButtonDown(1) && this.gameObject.GetComponent<PhotonView>().IsMine)
         {

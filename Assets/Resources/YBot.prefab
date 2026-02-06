@@ -2834,6 +2834,10 @@ MonoBehaviour:
   - {fileID: 7428217076763482782}
   - {fileID: 8911050449434592924}
   - {fileID: 560586342347723271}
+  damageAmts:
+  - 0.1
+  - 0.3
+  - 0.5
 --- !u!114 &3632175782130527337
 MonoBehaviour:
   m_ObjectHideFlags: 0
