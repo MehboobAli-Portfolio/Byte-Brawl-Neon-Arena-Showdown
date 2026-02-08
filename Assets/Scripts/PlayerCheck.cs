@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerCheck : MonoBehaviour
 {
-    public int maxPlayerInRoom = 2;
+    public int maxPlayerInRoom = 4;
     public Text currentPlayer;
     public GameObject hint1;
     public GameObject hint2;

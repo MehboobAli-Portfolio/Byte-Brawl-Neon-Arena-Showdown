@@ -38,6 +38,7 @@ public class WeaponChangeAdvanced : MonoBehaviour
     private string shooterName;
     private string gotShootName;
     public float[] damageAmts;
+    public bool isDead= false;
 
     // Start is called before the first frame update
     void Start()
@@ -61,8 +62,11 @@ public class WeaponChangeAdvanced : MonoBehaviour
         testForWeapons = GameObject.Find("Weapon1Pickup(Clone)");
         if (testForWeapons == null)
         {
-            var spawner = GameObject.Find("SpawnScript");
-            spawner.GetComponent<SpawnCharacters>().SpawnWeaponsStart();
+            if (this.gameObject.GetComponent<PhotonView>().Owner.IsMasterClient == true)
+            {
+                var spawner = GameObject.Find("SpawnScript");
+                spawner.GetComponent<SpawnCharacters>().SpawnWeaponsStart();
+            }
         }
 	}
 
@@ -70,7 +74,7 @@ public class WeaponChangeAdvanced : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0) && this.gameObject.GetComponent<PhotonView>().IsMine)
+        if(Input.GetMouseButtonDown(0) && this.gameObject.GetComponent<PhotonView>().IsMine && isDead == false)
         {
             GetComponent<DisplayColor>().PlayGunshot(GetComponent<PhotonView>().Owner.NickName,weaponNumber);
             this.GetComponent<PhotonView>().RPC("GunMuzzleFlash",RpcTarget.All);
@@ -85,14 +89,14 @@ public class WeaponChangeAdvanced : MonoBehaviour
                 }
                 if(hit.transform.gameObject.GetComponent<DisplayColor>() != null)
                 {
-                    hit.transform.gameObject.GetComponent<DisplayColor>().DeliverDamage(gotShootName, damageAmts[weaponNumber]);
+                    hit.transform.gameObject.GetComponent<DisplayColor>().DeliverDamage(this.GetComponent<PhotonView>().Owner.NickName,gotShootName, damageAmts[weaponNumber]);
                 }
                 shooterName = GetComponent<PhotonView>().Owner.NickName;
                 Debug.Log(gotShootName + "got hit by" + shooterName);
             }
             this.gameObject.layer = LayerMask.NameToLayer("Default");
         }
-        if (Input.GetMouseButtonDown(1) && this.gameObject.GetComponent<PhotonView>().IsMine)
+         if (Input.GetMouseButtonDown(1) && this.gameObject.GetComponent<PhotonView>().IsMine && isDead == false)
         {
             //weaponNumber++;
             this.GetComponent<PhotonView>().RPC("Change", RpcTarget.AllBuffered);

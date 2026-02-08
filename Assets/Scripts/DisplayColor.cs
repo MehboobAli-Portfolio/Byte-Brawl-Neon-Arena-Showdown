@@ -16,6 +16,7 @@ public class DisplayColor : MonoBehaviourPunCallbacks
 
     public AudioClip[] gunShotSounds;
 
+
     private void Start()
     {
         namesObject = GameObject.Find("NamesBG");
@@ -31,21 +32,39 @@ public class DisplayColor : MonoBehaviourPunCallbacks
                 RoomExit();
            }
         }
+        if(this.GetComponent<Animator>().GetBool("Hit") == true)
+        {
+            StartCoroutine(Recover());
+        }
     }
 
-    public void DeliverDamage(string name,float damageAmount)
+    public void DeliverDamage(string shooterName,string name,float damageAmount)
     {
-        GetComponent<PhotonView>().RPC("GunDamage",RpcTarget.AllBuffered,name,damageAmount);
+        GetComponent<PhotonView>().RPC("GunDamage",RpcTarget.AllBuffered,shooterName,name,damageAmount);
     }
 
     [PunRPC]
-    void GunDamage(string name,float damageAmount)
+    void GunDamage(string shooterName,string name,float damageAmount)
     {
         for (int i = 0; i < namesObject.GetComponent<NickNameScript>().names.Length; i++)
         {
             if (name == namesObject.GetComponent<NickNameScript>().names[i].text)
             {
-                namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.GetComponent<Image>().fillAmount -= damageAmount;
+                if (namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.GetComponent<Image>().fillAmount > 0.1f)
+                {
+                    this.GetComponent<Animator>().SetBool("Hit", true);
+                    namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.GetComponent<Image>().fillAmount -= damageAmount;
+                }
+                else
+                {
+                    namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.GetComponent<Image>().fillAmount = 0;
+                    this.GetComponent<Animator>().SetBool("Dead",true);
+                    this.gameObject.GetComponent<PlayerMovement>().isDead = true;
+                    this.gameObject.GetComponent<WeaponChangeAdvanced>().isDead = true;
+                    this.gameObject.GetComponentInChildren<AimLookAtRef>().isDead = true;
+                    namesObject.GetComponent<NickNameScript>().RunMessage(shooterName, name);
+                    this.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+                }
             }
         }
     }
@@ -59,7 +78,6 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     {
         StartCoroutine(GetReadyToLeave());
     }
-
     public void ChooseColor()
     {
         GetComponent<PhotonView>().RPC("AssignColor",RpcTarget.AllBuffered);
@@ -115,5 +133,10 @@ public class DisplayColor : MonoBehaviourPunCallbacks
         Cursor.visible = true;
         PhotonNetwork.LeaveRoom();
 
+    }
+    IEnumerator Recover()
+    {
+        yield return new WaitForSeconds(0.03f);
+        this.GetComponent<Animator>().SetBool("Hit", false);
     }
 }

@@ -10,8 +10,9 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private Animator anim;
     private bool canJump = true;
-	// Start is called before the first frame update
-	void Start()
+    public bool isDead = false;
+    // Start is called before the first frame update
+    void Start()
     {
         rb = GetComponent<Rigidbody>(); 
         anim = GetComponent<Animator>();
@@ -21,7 +22,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-			Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+        if (isDead == false)
+        {
+            Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
 
             Vector3 rotateY = new Vector3(0, Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime, 0);
             if (movement != Vector3.zero)
@@ -32,18 +35,20 @@ public class PlayerMovement : MonoBehaviour
 
             anim.SetFloat("BlendV", Input.GetAxis("Vertical"));
             anim.SetFloat("BlendH", Input.GetAxis("Horizontal"));
+        }
 	}
 
 	private void Update()
 	{
-        
+        if (isDead == false)
+        {
             if (Input.GetButtonDown("Jump") && canJump == true)
             {
                 canJump = false;
                 rb.AddForce(Vector3.up * 130 * Time.deltaTime, ForceMode.VelocityChange);
                 StartCoroutine(JumpAgain());
             }
-        
+        }   
     }
     IEnumerator JumpAgain()
     {

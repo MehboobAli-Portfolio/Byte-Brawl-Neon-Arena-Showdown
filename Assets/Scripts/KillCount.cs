@@ -30,7 +30,7 @@ public class KillCount : MonoBehaviour
                 highestKills.Clear();
                 for (int i = 0; i < names.Length; i++)
                 {
-                    highestKills.Add(new Kills(namesObject.GetComponent<NickNameScript>().names[i].text,Random.Range(1,2900)));
+                    highestKills.Add(new Kills(namesObject.GetComponent<NickNameScript>().names[i].text, namesObject.GetComponent<NickNameScript>().kills[i]));
                 }
                 highestKills.Sort();
                 for(int i = 0; i < names.Length; i++)
