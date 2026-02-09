@@ -38,6 +38,28 @@ public class DisplayColor : MonoBehaviourPunCallbacks
         }
     }
 
+    public void Respawn(string name)
+    {
+        GetComponent<PhotonView>().RPC("ResetForReplay",RpcTarget.AllBuffered,name);
+    }
+
+    [PunRPC]
+    void ResetForReplay(string name)
+    {
+        for (int i = 0; i < namesObject.GetComponent<NickNameScript>().names.Length; i++)
+        {
+            if (name == namesObject.GetComponent<NickNameScript>().names[i].text)
+            {
+                this.GetComponent<Animator>().SetBool("Dead", false);
+                this.gameObject.GetComponent<WeaponChangeAdvanced>().isDead = false;
+                this.gameObject.GetComponentInChildren<AimLookAtRef>().isDead = false;
+                this.gameObject.layer = LayerMask.NameToLayer("Default");
+                namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.GetComponent<Image>().fillAmount = 1;
+
+            }
+        }
+    }
+
     public void DeliverDamage(string shooterName,string name,float damageAmount)
     {
         GetComponent<PhotonView>().RPC("GunDamage",RpcTarget.AllBuffered,shooterName,name,damageAmount);

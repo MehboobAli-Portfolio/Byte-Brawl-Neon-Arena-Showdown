@@ -11,12 +11,17 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private bool canJump = true;
     public bool isDead = false;
+    private Vector3 startPos;
+    private bool respawned = false;
+    private GameObject respawnPanel;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>(); 
         anim = GetComponent<Animator>();
         rb.freezeRotation = true;
+        startPos = transform.position;
+        respawnPanel = GameObject.Find("RespawnPanel");
     }
 
     // Update is called once per frame
@@ -24,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDead == false)
         {
+            respawnPanel.SetActive(false);
             Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
 
             Vector3 rotateY = new Vector3(0, Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime, 0);
@@ -48,12 +54,27 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(Vector3.up * 130 * Time.deltaTime, ForceMode.VelocityChange);
                 StartCoroutine(JumpAgain());
             }
-        }   
+        }
+        if(isDead == true && respawned == false)
+        {
+            respawned = true;
+            respawnPanel.SetActive(true);
+            respawnPanel.GetComponent<RespawnTimer>().enabled = true;
+            StartCoroutine(RespawnWait());
+        }
     }
     IEnumerator JumpAgain()
     {
         yield return new WaitForSeconds(1);
         canJump = true;
     }
-
+    IEnumerator RespawnWait()
+    {
+        yield return new WaitForSeconds(3);
+        transform.position = startPos;
+        isDead = false;
+        respawned = false;
+        transform.position = startPos;
+        GetComponent<DisplayColor>().Respawn(GetComponent<PhotonView>().Owner.NickName);
+    }
 }
