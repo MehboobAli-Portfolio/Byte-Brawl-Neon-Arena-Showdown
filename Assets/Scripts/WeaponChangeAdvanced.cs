@@ -39,15 +39,20 @@ public class WeaponChangeAdvanced : MonoBehaviour
     private string gotShootName;
     public float[] damageAmts;
     public bool isDead= false;
-
+    private GameObject choosePanel;
     // Start is called before the first frame update
     void Start()
 	{
+        choosePanel = GameObject.Find("ChoosePanel");
         weaponIcon = GameObject.Find("WeaponUI").GetComponent<Image>();
         ammoAmtText = GameObject.Find("AmmoAmt").GetComponent<Text>();
         camObject = GameObject.Find("PlayerCam");
-		//aimTarget = GameObject.Find("AimRef").transform;
-		if (this.gameObject.GetComponent<PhotonView>().IsMine == true)
+        AmmoAmts[0] = 60;
+        AmmoAmts[1] = 0;
+        AmmoAmts[2] = 0;
+        ammoAmtText.text = AmmoAmts[0].ToString();
+        //aimTarget = GameObject.Find("AimRef").transform;
+        if (this.gameObject.GetComponent<PhotonView>().IsMine == true)
         {
            cam = camObject.GetComponent<CinemachineVirtualCamera>();
            cam.Follow = this.gameObject.transform;
@@ -74,8 +79,10 @@ public class WeaponChangeAdvanced : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0) && this.gameObject.GetComponent<PhotonView>().IsMine && isDead == false)
+        if(Input.GetMouseButtonDown(0) && this.gameObject.GetComponent<PhotonView>().IsMine && isDead == false && choosePanel.activeInHierarchy == false && AmmoAmts[weaponNumber]>0)
         {
+            AmmoAmts[weaponNumber]--;
+            ammoAmtText.text = AmmoAmts[weaponNumber].ToString();
             GetComponent<DisplayColor>().PlayGunshot(GetComponent<PhotonView>().Owner.NickName,weaponNumber);
             this.GetComponent<PhotonView>().RPC("GunMuzzleFlash",RpcTarget.All);
             RaycastHit hit;
@@ -118,6 +125,13 @@ public class WeaponChangeAdvanced : MonoBehaviour
             leftThumb.data.target = thumbTargets[weaponNumber];
             rig.Build();
         }
+    }
+
+
+    public void UpdatePickup()
+    {
+        ammoAmtText.text = AmmoAmts[weaponNumber].ToString();
+
     }
 
     [PunRPC]

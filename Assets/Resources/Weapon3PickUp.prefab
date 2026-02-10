@@ -732,6 +732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnTime: 30
   weaponType: 3
+  ammoRefillAmt: 10
 --- !u!1 &6972598664731142549
 GameObject:
   m_ObjectHideFlags: 0
