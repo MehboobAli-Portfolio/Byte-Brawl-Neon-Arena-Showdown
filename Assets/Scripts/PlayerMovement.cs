@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 startPos;
     private bool respawned = false;
     private GameObject respawnPanel;
+    public bool gameOver = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(JumpAgain());
             }
         }
-        if(isDead == true && respawned == false)
+        if(isDead == true && respawned == false && gameOver == false)
         {
             respawned = true;
             respawnPanel.SetActive(true);
