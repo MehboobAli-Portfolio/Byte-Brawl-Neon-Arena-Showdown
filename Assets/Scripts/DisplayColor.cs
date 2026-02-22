@@ -10,7 +10,10 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     public int[] buttonNumbers;
     public int[] viewID;
     public Color32[] colors;
-
+    public Color32[] teamColors;
+    public Color32[] ctbColor;
+    private bool teamMode = false;
+    private bool ctbMode = false;
     private GameObject namesObject;
     private GameObject waitForPlayers;
 
@@ -22,6 +25,8 @@ public class DisplayColor : MonoBehaviourPunCallbacks
         namesObject = GameObject.Find("NamesBG");
         waitForPlayers = GameObject.Find("WaitingBG");
         InvokeRepeating("CheckTime", 1, 1);
+        teamMode = namesObject.GetComponent<NickNameScript>().teamMode;
+        ctbMode = namesObject.GetComponent<NickNameScript>().ctbMode;
     }
     private void Update()
     {
@@ -138,12 +143,35 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     {
         for (int i = 0; i < viewID.Length; i++)
         {
-            if (this.GetComponent<PhotonView>().ViewID == viewID[i])
+            if(teamMode == true)
             {
-                this.transform.GetChild(1).GetComponent<Renderer>().material.color = colors[i];
-                namesObject.GetComponent<NickNameScript>().names[i].gameObject.SetActive(true);
-                namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.SetActive(true);
-                namesObject.GetComponent<NickNameScript>().names[i].text = this.GetComponent<PhotonView>().Owner.NickName;
+                if (this.GetComponent<PhotonView>().ViewID == viewID[i])
+                {
+                    this.transform.GetChild(1).GetComponent<Renderer>().material.color = teamColors[i];
+                    namesObject.GetComponent<NickNameScript>().names[i].gameObject.SetActive(true);
+                    namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.SetActive(true);
+                    namesObject.GetComponent<NickNameScript>().names[i].text = this.GetComponent<PhotonView>().Owner.NickName;
+                }
+            }
+            else if(ctbMode == true)
+            {
+                if (this.GetComponent<PhotonView>().ViewID == viewID[i])
+                {
+                    this.transform.GetChild(1).GetComponent<Renderer>().material.color = ctbColor[i];
+                    namesObject.GetComponent<NickNameScript>().names[i].gameObject.SetActive(true);
+                    namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.SetActive(true);
+                    namesObject.GetComponent<NickNameScript>().names[i].text = this.GetComponent<PhotonView>().Owner.NickName;
+                }
+            }
+            else if (teamMode == false && ctbMode == false)
+            {
+                if (this.GetComponent<PhotonView>().ViewID == viewID[i])
+                {
+                    this.transform.GetChild(1).GetComponent<Renderer>().material.color = colors[i];
+                    namesObject.GetComponent<NickNameScript>().names[i].gameObject.SetActive(true);
+                    namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.SetActive(true);
+                    namesObject.GetComponent<NickNameScript>().names[i].text = this.GetComponent<PhotonView>().Owner.NickName;
+                }
             }
         }
     }

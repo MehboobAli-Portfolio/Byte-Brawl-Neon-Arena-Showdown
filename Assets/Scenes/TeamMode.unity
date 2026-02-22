@@ -30620,7 +30620,7 @@ MonoBehaviour:
   messageText: {fileID: 1823134126}
   kills: 000000000000000000000000000000000000000000000000
   teamMode: 1
-  CTB: 0
+  ctbMode: 0
 --- !u!114 &391510302
 MonoBehaviour:
   m_ObjectHideFlags: 0

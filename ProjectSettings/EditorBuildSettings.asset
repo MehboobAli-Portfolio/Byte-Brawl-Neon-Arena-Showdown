@@ -26,5 +26,14 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Floor Layout.unity
     guid: bd2de53e5b48b3240a04f9a44997065d
+  - enabled: 1
+    path: Assets/Scenes/King of the Hills (koth).unity
+    guid: 67e446c00ca258b498b0d6065c64be5c
+  - enabled: 1
+    path: Assets/Scenes/TeamMode.unity
+    guid: a5b815b0b848ca4489ffe7e353e04949
+  - enabled: 1
+    path: Assets/Scenes/CTBMode.unity
+    guid: 85c55cc9fc6890044a965f5ee0ba1a7c
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

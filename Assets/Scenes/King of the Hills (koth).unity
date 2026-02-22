@@ -5495,10 +5495,10 @@ RectTransform:
   m_Children:
   - {fileID: 1086867095}
   - {fileID: 391510300}
-  - {fileID: 978009549}
   - {fileID: 1767055224}
-  - {fileID: 1173863604}
+  - {fileID: 978009549}
   - {fileID: 1065803088}
+  - {fileID: 1173863604}
   - {fileID: 473597442}
   - {fileID: 1367271276}
   - {fileID: 430310369}
@@ -7185,7 +7185,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 21616eafa58a085448ac8584d1ee76fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cfcc8719ed1184048be07621ebb6cf6b, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -30619,8 +30619,6 @@ MonoBehaviour:
   displayPanel: {fileID: 1065803087}
   messageText: {fileID: 1823134126}
   kills: 000000000000000000000000000000000000000000000000
-  teamMode: 1
-  CTB: 0
 --- !u!114 &391510302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65973,7 +65971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 723a8ea9876cdde4eac6f4cdfd851c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCheck
-  maxPlayerInRoom: 6
+  maxPlayerInRoom: 4
   currentPlayer: {fileID: 1116570113}
   hint1: {fileID: 487486425}
   hint2: {fileID: 218901035}
@@ -76347,7 +76345,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 21616eafa58a085448ac8584d1ee76fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fdf6e1d5d5f387e41b32b321833f4257, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -80835,7 +80833,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fc32c15e8e1a01146a0e517a2cd5a12f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 07fce9d956bfa6f4487d38ed130e8687, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -82360,7 +82358,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 21616eafa58a085448ac8584d1ee76fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cfcc8719ed1184048be07621ebb6cf6b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -110551,7 +110549,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fc32c15e8e1a01146a0e517a2cd5a12f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 07fce9d956bfa6f4487d38ed130e8687, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -116743,7 +116741,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Two Teams fight for the highest killcount after a 5 minute game. '
+  m_Text: The player with the highest kill count wins after 5 minutes game.
 --- !u!222 &1536384926
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -122744,7 +122742,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fc32c15e8e1a01146a0e517a2cd5a12f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69b82c2aad4c10443bb290cc0ac32572, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -148425,7 +148423,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fc32c15e8e1a01146a0e517a2cd5a12f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69b82c2aad4c10443bb290cc0ac32572, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -158404,7 +158402,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 21616eafa58a085448ac8584d1ee76fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fdf6e1d5d5f387e41b32b321833f4257, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

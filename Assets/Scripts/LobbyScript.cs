@@ -31,19 +31,19 @@ public class LobbyScript : MonoBehaviourPunCallbacks
 
     public void JoinLobbyKOTH()
     {
-        levelName = "Floor";
+        levelName = "King of the Hills (Koth)";
         PhotonNetwork.JoinLobby(KOTH);
     }
 
     public void JoinLobbyTDM()
     {
-        levelName = "Floor";
+        levelName = "TeamMode";
         PhotonNetwork.JoinLobby(TDM);
     }
 
     public void JoinLobbyCTB()
     {
-        levelName = "Floor";
+        levelName = "CTBMode";
         PhotonNetwork.JoinLobby(CTB);
     }
 

@@ -11,6 +11,9 @@ public class NickNameScript : MonoBehaviourPunCallbacks
     public GameObject displayPanel;
     public Text messageText;
     public int[] kills;
+    public bool teamMode = false;
+    public bool ctbMode = false;
+
     private void Start()
     {
         displayPanel.SetActive(false);

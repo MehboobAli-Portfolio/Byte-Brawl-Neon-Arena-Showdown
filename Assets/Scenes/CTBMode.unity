@@ -30619,8 +30619,8 @@ MonoBehaviour:
   displayPanel: {fileID: 1065803087}
   messageText: {fileID: 1823134126}
   kills: 000000000000000000000000000000000000000000000000
-  teamMode: 1
-  CTB: 0
+  teamMode: 0
+  ctbMode: 1
 --- !u!114 &391510302
 MonoBehaviour:
   m_ObjectHideFlags: 0
