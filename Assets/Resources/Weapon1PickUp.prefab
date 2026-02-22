@@ -307,3 +307,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnTime: 60
   weaponType: 1
+  ammoRefillAmt: 60
