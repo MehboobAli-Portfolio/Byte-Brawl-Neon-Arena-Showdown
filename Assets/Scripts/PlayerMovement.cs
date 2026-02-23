@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private bool respawned = false;
     private GameObject respawnPanel;
     public bool gameOver = false;
+    public bool noRespawn;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,12 +57,17 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(JumpAgain());
             }
         }
-        if(isDead == true && respawned == false && gameOver == false)
+        if(isDead == true && respawned == false && gameOver == false && noRespawn == false)
         {
             respawned = true;
             respawnPanel.SetActive(true);
             respawnPanel.GetComponent<RespawnTimer>().enabled = true;
             StartCoroutine(RespawnWait());
+        }
+        if (isDead == true && respawned == false && gameOver == false && noRespawn == true)
+        {
+            respawned = true;
+            GetComponent<DisplayColor>().NoRespawnExit();
         }
     }
     IEnumerator JumpAgain()

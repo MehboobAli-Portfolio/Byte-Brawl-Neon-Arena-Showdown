@@ -2549,6 +2549,7 @@ MonoBehaviour:
   rotateSpeed: 100
   isDead: 0
   gameOver: 0
+  noRespawn: 0
 --- !u!114 &3972373321477662197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2991,6 +2992,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 93fba0b1bf5014543918fa775911b6a3, type: 3}
   - {fileID: 8300000, guid: 733a0ff7727334749a0381b7092162b3, type: 3}
   - {fileID: 8300000, guid: 56f5b6fa20679894d8658d743a03e1e4, type: 3}
+  isRespawn: 0
 --- !u!82 &793750176740762344
 AudioSource:
   m_ObjectHideFlags: 0

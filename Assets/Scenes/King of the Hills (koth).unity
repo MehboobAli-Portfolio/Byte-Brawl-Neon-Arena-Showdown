@@ -5497,8 +5497,8 @@ RectTransform:
   - {fileID: 391510300}
   - {fileID: 1767055224}
   - {fileID: 978009549}
-  - {fileID: 1065803088}
   - {fileID: 1173863604}
+  - {fileID: 1065803088}
   - {fileID: 473597442}
   - {fileID: 1367271276}
   - {fileID: 430310369}
@@ -30619,6 +30619,9 @@ MonoBehaviour:
   displayPanel: {fileID: 1065803087}
   messageText: {fileID: 1823134126}
   kills: 000000000000000000000000000000000000000000000000
+  teamMode: 0
+  ctbMode: 0
+  survival: 0
 --- !u!114 &391510302
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -18,7 +18,8 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     private GameObject waitForPlayers;
 
     public AudioClip[] gunShotSounds;
-
+    
+    public bool isRespawn = false;
 
     private void Start()
     {
@@ -27,6 +28,12 @@ public class DisplayColor : MonoBehaviourPunCallbacks
         InvokeRepeating("CheckTime", 1, 1);
         teamMode = namesObject.GetComponent<NickNameScript>().teamMode;
         ctbMode = namesObject.GetComponent<NickNameScript>().ctbMode;
+        isRespawn = namesObject.GetComponent<NickNameScript>().survival;
+        GetComponent<PlayerMovement>().noRespawn = isRespawn;
+        if (GetComponent<PlayerMovement>().noRespawn == false)
+        {
+            GetComponent<PlayerMovement>().noRespawn = ctbMode;
+        }
     }
     private void Update()
     {
@@ -43,6 +50,13 @@ public class DisplayColor : MonoBehaviourPunCallbacks
             StartCoroutine(Recover());
         }
     }
+
+    public void NoRespawnExit()
+    {
+        namesObject.GetComponent<NickNameScript>().eliminationPanel.SetActive(true);
+        StartCoroutine(WaitToExit());
+    }
+    
     void CheckTime()
     {
         if(namesObject.GetComponent<Timer>().timeStop == true)
@@ -199,5 +213,11 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(0.03f);
         this.GetComponent<Animator>().SetBool("Hit", false);
+    }
+    IEnumerator WaitToExit()
+    {
+        yield return new WaitForSeconds(3);
+        RemoveData();
+        RoomExit();
     }
 }

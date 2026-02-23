@@ -35,5 +35,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CTBMode.unity
     guid: 85c55cc9fc6890044a965f5ee0ba1a7c
+  - enabled: 1
+    path: Assets/Scenes/Survival.unity
+    guid: 18d5d8fff1d34ba4994cf0d34b12467e
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

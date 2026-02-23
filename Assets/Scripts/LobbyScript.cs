@@ -49,7 +49,7 @@ public class LobbyScript : MonoBehaviourPunCallbacks
 
     public void JoinLobbySurvival()
     {
-        levelName = "Floor";
+        levelName = "Survival";
         PhotonNetwork.JoinLobby(Survival);
     }
 

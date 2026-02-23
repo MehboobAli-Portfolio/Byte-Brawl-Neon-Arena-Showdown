@@ -13,9 +13,11 @@ public class NickNameScript : MonoBehaviourPunCallbacks
     public int[] kills;
     public bool teamMode = false;
     public bool ctbMode = false;
-
+    public bool survival = false;
+    public GameObject eliminationPanel;
     private void Start()
     {
+        eliminationPanel.SetActive(false);
         displayPanel.SetActive(false);
         for (int i = 0; i < names.Length; i++)
         {
