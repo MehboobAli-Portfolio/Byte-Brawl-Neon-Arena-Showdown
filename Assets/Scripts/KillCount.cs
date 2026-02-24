@@ -84,6 +84,11 @@ public class KillCount : MonoBehaviour
             }
         }
     }
+    public void SurvivalWinner(string name)
+    {
+        winnerPanel.SetActive(true);
+        winnerText.text=name;
+    }
 
 
 }

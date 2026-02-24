@@ -17,7 +17,10 @@ public class NickNameScript : MonoBehaviourPunCallbacks
     public GameObject eliminationPanel;
     private void Start()
     {
-        eliminationPanel.SetActive(false);
+        if (survival == true || ctbMode == true)
+        {
+            eliminationPanel.SetActive(false);
+        }
         displayPanel.SetActive(false);
         for (int i = 0; i < names.Length; i++)
         {

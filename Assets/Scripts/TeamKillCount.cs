@@ -49,6 +49,19 @@ public class TeamKillCount : MonoBehaviour
                 killCountOn = false;
             }
         }
+        if(countDown == true)
+        {
+            highestKills.Clear();
+            for (int i = 0; i < 6; i++)
+            {
+                if (namesObject.GetComponent<NickNameScript>().names[i] != null)
+                {
+                    highestKills.Add(new Kills(namesObject.GetComponent<NickNameScript>().names[i].text, namesObject.GetComponent<NickNameScript>().kills[i]));
+                }
+            }
+            RedTeamKills = highestKills[0].playerKills + highestKills[1].playerKills + highestKills[2].playerKills;
+            BlueTeamKills = highestKills[3].playerKills + highestKills[4].playerKills + highestKills[5].playerKills;
+        }
     }
     public void TimeOver()
     {
@@ -62,6 +75,26 @@ public class TeamKillCount : MonoBehaviour
         }
         RedTeamKills = highestKills[0].playerKills + highestKills[1].playerKills + highestKills[2].playerKills;
         BlueTeamKills = highestKills[3].playerKills + highestKills[4].playerKills + highestKills[5].playerKills;
+        killAmts[0].text = RedTeamKills.ToString();
+        killAmts[1].text = BlueTeamKills.ToString();
+        if (RedTeamKills > BlueTeamKills)
+        {
+            winnerText.text = "Red Team Wins!";
+        }
+        else if (BlueTeamKills > RedTeamKills)
+        {
+            winnerText.text = "Blue Team Wins!";
+        }
+        else
+        {
+            winnerText.text = "It's a Tie!";
+        }
+    }
+    public void CTBWinner()
+    {
+        killCountPanel.SetActive(true);
+        winnerPanel.SetActive(true);
+        killCountOn = true;
         killAmts[0].text = RedTeamKills.ToString();
         killAmts[1].text = BlueTeamKills.ToString();
         if (RedTeamKills > BlueTeamKills)

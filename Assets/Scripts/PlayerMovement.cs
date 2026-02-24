@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     private GameObject respawnPanel;
     public bool gameOver = false;
     public bool noRespawn;
+    public bool startChecking = false;
+    private GameObject Canvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
         startPos = transform.position;
         respawnPanel = GameObject.Find("RespawnPanel");
+        Canvas = GameObject.Find("Canvas");
     }
 
     // Update is called once per frame
@@ -68,6 +71,22 @@ public class PlayerMovement : MonoBehaviour
         {
             respawned = true;
             GetComponent<DisplayColor>().NoRespawnExit();
+        }
+        if(PhotonNetwork.CurrentRoom.PlayerCount>1 && startChecking == false)
+        {
+            startChecking = true;
+            InvokeRepeating("CheckforWinner", 10, 3);
+        }
+    }
+    void checkforwinner()
+    {
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1 && GetComponent<NickNameScript>().survival == true && noRespawn == true)
+        {
+            Canvas.GetComponent<KillCount>().SurvivalWinner(GetComponent<PhotonView>().Owner.NickName);
+        }
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1 && GetComponent<NickNameScript>().ctbMode == true && noRespawn == true)
+        {
+            Canvas.GetComponent<TeamKillCount>().CTBWinner();
         }
     }
     IEnumerator JumpAgain()

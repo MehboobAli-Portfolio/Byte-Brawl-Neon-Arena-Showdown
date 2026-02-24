@@ -99,7 +99,6 @@ public class WeaponChangeAdvanced : MonoBehaviour
                     hit.transform.gameObject.GetComponent<DisplayColor>().DeliverDamage(this.GetComponent<PhotonView>().Owner.NickName,gotShootName, damageAmts[weaponNumber]);
                 }
                 shooterName = GetComponent<PhotonView>().Owner.NickName;
-                Debug.Log(gotShootName + "got hit by" + shooterName);
             }
             this.gameObject.layer = LayerMask.NameToLayer("Default");
         }

@@ -60,14 +60,12 @@ public class LobbyScript : MonoBehaviourPunCallbacks
 
 	public override void OnJoinRandomFailed(short returnCode, string message)
 	{
-        Debug.Log("Join Random Room Failed. Creating a new room...");
         RoomOptions roomOptions = new RoomOptions();
 		roomOptions.MaxPlayers = 6;
 		PhotonNetwork.CreateRoom("Arena" + Random.Range(1, 1000), roomOptions);
 	}
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        Debug.Log("Join Room Failed: " + message);
 
         if (roomNumber1 != null)
         {
@@ -109,7 +107,7 @@ public class LobbyScript : MonoBehaviourPunCallbacks
             {
                 roomNumber1.text = "Please Enter Correct ID";
             }
-            Debug.Log("Input field is empty or missing.");
+            
         }
     }
 
