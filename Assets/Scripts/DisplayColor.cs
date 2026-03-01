@@ -98,6 +98,39 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     [PunRPC]
     void GunDamage(string shooterName,string name,float damageAmount)
     {
+        if (teamMode == true || ctbMode == true)
+        {
+            int shooterIndex = -1;
+            int targetIndex = -1;
+
+            // Find the UI index for both the shooter and the target
+            for (int j = 0; j < namesObject.GetComponent<NickNameScript>().names.Length; j++)
+            {
+                if (namesObject.GetComponent<NickNameScript>().names[j].text == shooterName)
+                {
+                    shooterIndex = j;
+                }
+                if (namesObject.GetComponent<NickNameScript>().names[j].text == name)
+                {
+                    targetIndex = j;
+                }
+            }
+
+            // If both players were found, check their teams
+            if (shooterIndex != -1 && targetIndex != -1)
+            {
+                // Indices 0, 1, 2 are Red Team. Indices 3, 4, 5 are Blue Team.
+                bool shooterIsRedTeam = (shooterIndex <= 2);
+                bool targetIsRedTeam = (targetIndex <= 2);
+                bool shooterIsBlueTeam = (shooterIndex > 2);
+                bool targetIsBlueTeam = (targetIndex > 2);
+                // If they are on the same team, exit without applying damage
+                if ((shooterIsRedTeam && targetIsRedTeam) || (shooterIsBlueTeam && targetIsBlueTeam))
+                {
+                    return;
+                }
+            }
+        }
         for (int i = 0; i < namesObject.GetComponent<NickNameScript>().names.Length; i++)
         {
             if (name == namesObject.GetComponent<NickNameScript>().names[i].text)
