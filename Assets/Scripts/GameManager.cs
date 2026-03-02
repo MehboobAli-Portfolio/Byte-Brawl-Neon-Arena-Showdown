@@ -50,7 +50,9 @@ public class GameManager : MonoBehaviourPunCallbacks
                 var newProfile = new PlayerAccount
                 {
                     Username = usernameInput.text,
-                    Email = emailInput.text
+                    Email = emailInput.text,
+                    RankTierID = 1,     // <-- FIX: Explicitly set to 1 (Unranked)
+                    PlayerLevel = 1
                 };
                 await db.From<PlayerAccount>().Insert(newProfile);
 
