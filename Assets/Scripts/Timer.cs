@@ -13,9 +13,59 @@ public class Timer : MonoBehaviour
     [HideInInspector]
     public bool timeStop = false;
 
-    public void BeginTimer()
+    [HideInInspector]
+    public int currentMatchID = -1;
+
+    public async void BeginTimer()
     {
+        // NEW: Only the Host creates the Match Session in the database to prevent duplicates
+        if (PhotonNetwork.IsMasterClient)
+        {
+            int newMatchID = await CreateMatchSession();
+            GetComponent<PhotonView>().RPC("SyncMatchID", RpcTarget.AllBuffered, newMatchID);
+        }
         GetComponent<PhotonView>().RPC("Count", RpcTarget.AllBuffered);
+    }
+    // --- NEW: Database Function to create the match ---
+    private async System.Threading.Tasks.Task<int> CreateMatchSession()
+    {
+        try
+        {
+            var db = DatabaseManager.Instance.supabase;
+
+            // Determine the game mode string to save to the database
+            string mode = "Free For All";
+            if (GetComponent<NickNameScript>().teamMode) mode = "Team Deathmatch";
+            if (GetComponent<NickNameScript>().ctbMode) mode = "Capture The Byte";
+            if (GetComponent<NickNameScript>().survival) mode = "Survival";
+
+            var newMatch = new MatchSession
+            {
+                MapName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,
+                GameMode = mode,
+                StartTime = System.DateTime.UtcNow
+            };
+
+            // Insert into Supabase and grab the automatically returned data
+            var response = await db.From<MatchSession>().Insert(newMatch);
+
+            if (response.Models.Count > 0)
+            {
+                return response.Models[0].MatchID;
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning("Could not create match session: " + e.Message);
+        }
+        return -1;
+    }
+    // --- NEW: RPC to share the Match ID with the other players ---
+    [PunRPC]
+    void SyncMatchID(int matchID)
+    {
+        currentMatchID = matchID;
+        Debug.Log("Supabase Match Started! Match ID: " + currentMatchID);
     }
     [PunRPC]
     void Count()

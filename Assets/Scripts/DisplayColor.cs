@@ -54,6 +54,19 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     public void NoRespawnExit()
     {
         namesObject.GetComponent<NickNameScript>().eliminationPanel.SetActive(true);
+        // --- NEW: Save the loser's stats BEFORE they disconnect! ---
+        GameObject canvas = GameObject.Find("Canvas");
+        if (canvas != null)
+        {
+            if (ctbMode == true)
+            {
+                canvas.GetComponent<TeamKillCount>().SaveMyStats(false);
+            }
+            else
+            {
+                canvas.GetComponent<KillCount>().SaveMyStats(false);
+            }
+        }
         StartCoroutine(WaitToExit());
     }
     

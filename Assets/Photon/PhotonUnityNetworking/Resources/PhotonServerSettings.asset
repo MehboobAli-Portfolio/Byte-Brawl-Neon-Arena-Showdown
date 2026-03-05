@@ -71,6 +71,7 @@ MonoBehaviour:
   - ResetForReplay
   - Rotator
   - PlayGunSound
+  - SyncMatchID
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

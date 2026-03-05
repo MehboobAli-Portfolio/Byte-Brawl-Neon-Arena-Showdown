@@ -11,6 +11,7 @@ public class NickNameScript : MonoBehaviourPunCallbacks
     public GameObject displayPanel;
     public Text messageText;
     public int[] kills;
+    public int[] deaths;
     public bool teamMode = false;
     public bool ctbMode = false;
     public bool survival = false;
@@ -28,6 +29,10 @@ public class NickNameScript : MonoBehaviourPunCallbacks
             healthbars[i].gameObject.SetActive(false);
         }
         waitObject = GameObject.Find("WaitingBG");
+        if (deaths.Length != names.Length)
+        {
+            deaths = new int[names.Length];
+        }
     }
 
     public void Leaving()
@@ -39,6 +44,8 @@ public class NickNameScript : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(0.5f);
         PhotonNetwork.LoadLevel("Lobby");
     }
+
+
     //This is for the Waiting screen
     public void ReturnToLobby()
     {
@@ -54,6 +61,7 @@ public class NickNameScript : MonoBehaviourPunCallbacks
     {
         this.GetComponent<PhotonView>().RPC("DisplayMessage", RpcTarget.All, win, losse);
         UpdateKills(win);
+        UpdateDeaths(losse);
     }
 
     void UpdateKills(string win)
@@ -63,6 +71,16 @@ public class NickNameScript : MonoBehaviourPunCallbacks
             if (names[i].text == win)
             {
                 kills[i]++;
+            }
+        }
+    }
+    void UpdateDeaths(string losse)
+    {
+        for (int i = 0; i < names.Length; i++)
+        {
+            if (names[i].text == losse)
+            {
+                deaths[i]++;
             }
         }
     }
@@ -96,5 +114,27 @@ public class NickNameScript : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         PhotonNetwork.LoadLevel("Lobby");
+    }
+    // --- NEW: Bulletproof Photon Server Trigger ---
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    {
+        // When a defeated player is kicked from the room, check if we are the last one standing!
+        if (PhotonNetwork.CurrentRoom.PlayerCount <= 1)
+        {
+            // Safely grab the Canvas from the Timer script attached to this exact same object
+            GameObject myCanvas = this.GetComponent<Timer>().Canvas;
+
+            if (myCanvas != null)
+            {
+                if (survival == true)
+                {
+                    myCanvas.GetComponent<KillCount>().SurvivalWinner(PhotonNetwork.LocalPlayer.NickName);
+                }
+                else if (ctbMode == true)
+                {
+                    myCanvas.GetComponent<TeamKillCount>().CTBWinner();
+                }
+            }
+        }
     }
 }

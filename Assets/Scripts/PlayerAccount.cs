@@ -5,6 +5,9 @@ using Postgrest.Models;
 [Table("player_account")]
 public class PlayerAccount : BaseModel
 {
+    [PrimaryKey("playerid", false)] // 'false' means the database generates this number automatically
+    public int PlayerID { get; set; }
+
     [Column("username")]
     public string Username { get; set; }
 
@@ -21,6 +24,7 @@ public class PlayerAccount : BaseModel
     [Column("totaldeaths")]
     public int TotalDeaths { get; set; }
 
-    [Column("playerlevel")]
-    public int PlayerLevel { get; set; }
+    [Column("totalscore")]
+    public int TotalScore { get; set; }
+
 }

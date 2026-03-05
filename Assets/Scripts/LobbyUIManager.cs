@@ -45,7 +45,14 @@ public class LobbyUIManager : MonoBehaviour
                 // Update the UI text with the database numbers
                 killsText.text = "Kills: " + profile.TotalKills;
                 deathsText.text = "Deaths: " + profile.TotalDeaths;
-                levelText.text = "Level: " + profile.PlayerLevel;
+                // --- ALIGNED LOBBY UI LOGIC ---
+                string rankName = "Unranked"; // Default to ID 1
+
+                if (profile.RankTierID == 2) rankName = "Bronze";
+                else if (profile.RankTierID == 3) rankName = "Silver";
+                else if (profile.RankTierID == 4) rankName = "Gold";
+                // Display the actual word in the UI
+                levelText.text = "Rank: " + rankName;
 
                 // Calculate the K/D Ratio safely
                 float kd = 0;
