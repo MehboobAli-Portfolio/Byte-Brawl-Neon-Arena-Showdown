@@ -30624,6 +30624,13 @@ MonoBehaviour:
   ctbMode: 0
   survival: 0
   eliminationPanel: {fileID: 0}
+  colorButtons:
+  - {fileID: 1088361271}
+  - {fileID: 1075870036}
+  - {fileID: 2069877839}
+  - {fileID: 1168591456}
+  - {fileID: 1461299834}
+  - {fileID: 1913581961}
 --- !u!114 &391510302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65982,7 +65989,6 @@ MonoBehaviour:
   hint1: {fileID: 487486425}
   hint2: {fileID: 218901035}
   enterButton: {fileID: 1073749810}
-  waitTimer: 60
 --- !u!114 &870497389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93336,7 +93342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Cinemachine::Cinemachine.Cinemachine3rdPersonFollow
-  Damping: {x: 0.1, y: 0.5, z: 0.3}
+  Damping: {x: 0.1, y: 0.2, z: 0.3}
   ShoulderOffset: {x: 0.7, y: 2.17, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 1

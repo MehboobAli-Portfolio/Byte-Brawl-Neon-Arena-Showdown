@@ -30625,6 +30625,13 @@ MonoBehaviour:
   ctbMode: 0
   survival: 1
   eliminationPanel: {fileID: 1588094856}
+  colorButtons:
+  - {fileID: 1088361271}
+  - {fileID: 1075870036}
+  - {fileID: 2069877839}
+  - {fileID: 1168591456}
+  - {fileID: 1461299834}
+  - {fileID: 1913581961}
 --- !u!114 &391510302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36312,7 +36319,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -20, y: 0}
+  m_AnchoredPosition: {x: -20, y: -9}
   m_SizeDelta: {x: 600, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &487486427
@@ -93479,7 +93486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Cinemachine::Cinemachine.Cinemachine3rdPersonFollow
-  Damping: {x: 0.1, y: 0.5, z: 0.3}
+  Damping: {x: 0.1, y: 0.2, z: 0.3}
   ShoulderOffset: {x: 0.7, y: 2.17, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 1

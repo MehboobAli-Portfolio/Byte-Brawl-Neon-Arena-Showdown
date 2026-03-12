@@ -15,6 +15,7 @@ public class KillCount : MonoBehaviour
     public bool countDown = true;
     public GameObject winnerPanel;
     public Text winnerText;
+    private bool hasSavedStats = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -163,6 +164,11 @@ public class KillCount : MonoBehaviour
 
     public async void SaveMyStats(bool isWinner)
     {
+        if (hasSavedStats == true)
+        {
+            return; // We already saved! Stop the code here.
+        }
+        hasSavedStats = true;
         try
         {
             var db = DatabaseManager.Instance.supabase;

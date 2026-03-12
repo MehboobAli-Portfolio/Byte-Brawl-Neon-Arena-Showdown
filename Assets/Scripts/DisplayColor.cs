@@ -20,6 +20,7 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     public AudioClip[] gunShotSounds;
     
     public bool isRespawn = false;
+    private bool isDisconnecting = false;
 
     private void Start()
     {
@@ -46,15 +47,16 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && !isDisconnecting)
         {
-           if(GetComponent<PhotonView>().IsMine == true && waitForPlayers.activeInHierarchy==false)
-           {
+            if (GetComponent<PhotonView>().IsMine == true && waitForPlayers.activeInHierarchy == false)
+            {
+                isDisconnecting = true; // Lock the door so it can't run twice!
                 RemoveData();
                 RoomExit();
-           }
+            }
         }
-        if(this.GetComponent<Animator>().GetBool("Hit") == true)
+        if (this.GetComponent<Animator>().GetBool("Hit") == true)
         {
             StartCoroutine(Recover());
         }
@@ -81,12 +83,23 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     
     void CheckTime()
     {
-        if(namesObject.GetComponent<Timer>().timeStop == true)
+        if (namesObject.GetComponent<Timer>().timeStop == true)
         {
-            this.gameObject.GetComponent<PlayerMovement>().isDead = true;
-            this.gameObject.GetComponent<PlayerMovement>().gameOver = true;
-            this.gameObject.GetComponent<WeaponChangeAdvanced>().isDead = true;
-            this.gameObject.GetComponentInChildren<AimLookAtRef>().isDead = true;
+            // SAFE CHECKS: Only shut down human scripts if they actually exist!
+            if (this.gameObject.GetComponent<PlayerMovement>() != null)
+            {
+                this.gameObject.GetComponent<PlayerMovement>().isDead = true;
+                this.gameObject.GetComponent<PlayerMovement>().gameOver = true;
+            }
+            if (this.gameObject.GetComponent<WeaponChangeAdvanced>() != null)
+            {
+                this.gameObject.GetComponent<WeaponChangeAdvanced>().isDead = true;
+            }
+            if (this.gameObject.GetComponentInChildren<AimLookAtRef>() != null)
+            {
+                this.gameObject.GetComponentInChildren<AimLookAtRef>().isDead = true;
+            }
+
             this.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         }
     }
@@ -122,7 +135,20 @@ public class DisplayColor : MonoBehaviourPunCallbacks
 
     public void DeliverDamage(string shooterName,string name,float damageAmount)
     {
-        GetComponent<PhotonView>().RPC("GunDamage",RpcTarget.AllBuffered,shooterName,name,damageAmount);
+        string myRealName = "";
+
+        // Check if I am a bot
+        if (this.gameObject.GetComponent<AIBotController>() != null)
+        {
+            // Force my true bot name!
+            myRealName = "Bot " + this.GetComponent<PhotonView>().ViewID;
+        }
+        else
+        {
+            // I am a human, use my real network name
+            myRealName = this.GetComponent<PhotonView>().Owner.NickName;
+        }
+        GetComponent<PhotonView>().RPC("GunDamage",RpcTarget.AllBuffered,shooterName, myRealName, damageAmount);
     }
 
     [PunRPC]
@@ -161,7 +187,7 @@ public class DisplayColor : MonoBehaviourPunCallbacks
                 }
             }
         }
-        for (int i = 0; i < namesObject.GetComponent<NickNameScript>().names.Length; i++)
+        /*for (int i = 0; i < namesObject.GetComponent<NickNameScript>().names.Length; i++)
         {
             if (name == namesObject.GetComponent<NickNameScript>().names[i].text)
             {
@@ -186,6 +212,47 @@ public class DisplayColor : MonoBehaviourPunCallbacks
                     {
                         this.gameObject.GetComponentInChildren<AimLookAtRef>().isDead = true;
                     }
+                    namesObject.GetComponent<NickNameScript>().RunMessage(shooterName, name);
+                    this.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+                }
+            }
+        }*/
+        for (int i = 0; i < namesObject.GetComponent<NickNameScript>().names.Length; i++)
+        {
+            if (name == namesObject.GetComponent<NickNameScript>().names[i].text)
+            {
+                // Grab the health bar image so we don't have to type it out over and over
+                Image healthBar = namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.GetComponent<Image>();
+
+                // Calculate what their health WILL be after this shot hits
+                float resultingHealth = healthBar.fillAmount - damageAmount;
+
+                if (resultingHealth > 0f)
+                {
+                    // They survive the shot! Apply the damage and play the flinch animation
+                    this.GetComponent<Animator>().SetBool("Hit", true);
+                    healthBar.fillAmount = resultingHealth;
+                }
+                else
+                {
+                    // The shot is fatal! Force the health bar to 0 (completely empty) and kill them
+                    healthBar.fillAmount = 0f;
+
+                    this.GetComponent<Animator>().SetBool("Dead", true);
+
+                    if (this.gameObject.GetComponent<PlayerMovement>() != null)
+                    {
+                        this.gameObject.GetComponent<PlayerMovement>().isDead = true;
+                    }
+                    if (this.gameObject.GetComponent<WeaponChangeAdvanced>() != null)
+                    {
+                        this.gameObject.GetComponent<WeaponChangeAdvanced>().isDead = true;
+                    }
+                    if (this.gameObject.GetComponentInChildren<AimLookAtRef>() != null)
+                    {
+                        this.gameObject.GetComponentInChildren<AimLookAtRef>().isDead = true;
+                    }
+
                     namesObject.GetComponent<NickNameScript>().RunMessage(shooterName, name);
                     this.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
                 }
@@ -227,56 +294,51 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     [PunRPC]
     void AssignColor()
     {
-        // --- NEW: Bulletproof Name Check to stop Identity Theft! ---
+        // --- Bulletproof Name Check ---
         string myName = "";
         if (this.gameObject.GetComponent<AIBotController>() != null)
         {
-            // It's a bot! Give it a unique name like "Bot 1001"
             myName = "Bot " + this.GetComponent<PhotonView>().ViewID;
         }
         else
         {
-            // It's a human! Use their real typed name.
             myName = this.GetComponent<PhotonView>().Owner.NickName;
         }
 
         for (int i = 0; i < viewID.Length; i++)
         {
-            if (teamMode == true)
+            // --- THE FIX: We put EVERYTHING inside this one single IF statement! ---
+            // Now, it will only do these things if the ID matches the exact slot.
+            if (this.GetComponent<PhotonView>().ViewID == viewID[i])
             {
-                if (this.GetComponent<PhotonView>().ViewID == viewID[i])
+                // 1. Hide ONLY the specific button that was picked
+                NickNameScript nns = namesObject.GetComponent<NickNameScript>();
+                if (nns.colorButtons != null && i < nns.colorButtons.Length)
+                {
+                    if (nns.colorButtons[i] != null)
+                    {
+                        nns.colorButtons[i].SetActive(false);
+                    }
+                }
+
+                // 2. Assign the actual color
+                if (teamMode == true)
                 {
                     this.transform.GetChild(1).GetComponent<Renderer>().material.color = teamColors[i];
-                    namesObject.GetComponent<NickNameScript>().names[i].gameObject.SetActive(true);
-                    namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.SetActive(true);
-
-                    // Put the fixed name on the UI
-                    namesObject.GetComponent<NickNameScript>().names[i].text = myName;
                 }
-            }
-            else if (ctbMode == true)
-            {
-                if (this.GetComponent<PhotonView>().ViewID == viewID[i])
+                else if (ctbMode == true)
                 {
                     this.transform.GetChild(1).GetComponent<Renderer>().material.color = ctbColor[i];
-                    namesObject.GetComponent<NickNameScript>().names[i].gameObject.SetActive(true);
-                    namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.SetActive(true);
-
-                    // Put the fixed name on the UI
-                    namesObject.GetComponent<NickNameScript>().names[i].text = myName;
                 }
-            }
-            else if (teamMode == false && ctbMode == false)
-            {
-                if (this.GetComponent<PhotonView>().ViewID == viewID[i])
+                else if (teamMode == false && ctbMode == false)
                 {
                     this.transform.GetChild(1).GetComponent<Renderer>().material.color = colors[i];
-                    namesObject.GetComponent<NickNameScript>().names[i].gameObject.SetActive(true);
-                    namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.SetActive(true);
-
-                    // Put the fixed name on the UI
-                    namesObject.GetComponent<NickNameScript>().names[i].text = myName;
                 }
+
+                // 3. Turn on the UI bars and Text
+                namesObject.GetComponent<NickNameScript>().names[i].gameObject.SetActive(true);
+                namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.SetActive(true);
+                namesObject.GetComponent<NickNameScript>().names[i].text = myName;
             }
         }
     }
@@ -307,10 +369,19 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     IEnumerator GetReadyToLeave()
     {
         yield return new WaitForSeconds(1.0f);
-        namesObject.GetComponent<NickNameScript>().Leaving();
-        Cursor.visible = true;
-        PhotonNetwork.LeaveRoom();
 
+        if (namesObject != null)
+        {
+            namesObject.GetComponent<NickNameScript>().Leaving();
+        }
+
+        Cursor.visible = true;
+
+        // --- NEW FIX: Ask Photon if we are actually in a room before trying to leave! ---
+        if (PhotonNetwork.InRoom)
+        {
+            PhotonNetwork.LeaveRoom();
+        }
     }
     IEnumerator Recover()
     {

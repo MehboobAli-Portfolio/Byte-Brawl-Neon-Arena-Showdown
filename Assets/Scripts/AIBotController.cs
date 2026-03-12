@@ -32,6 +32,26 @@ public class AIBotController : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        // --- NEW FIX: Teleport to a proper spawn point! ---
+        SpawnCharacters spawner = GameObject.FindObjectOfType<SpawnCharacters>();
+        if (spawner != null && spawner.spawnPoints.Length > 0)
+        {
+            // Pick a unique spawn point so they don't overlap
+            int myIndex = GetComponent<PhotonView>().ViewID % spawner.spawnPoints.Length;
+
+            // If the bot uses a NavMeshAgent, we have to Warp it safely
+            UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+            if (agent != null)
+            {
+                agent.Warp(spawner.spawnPoints[myIndex].position);
+            }
+            else
+            {
+                this.transform.position = spawner.spawnPoints[myIndex].position;
+            }
+
+            this.transform.rotation = spawner.spawnPoints[myIndex].rotation;
+        }
         currentAmmo = new int[] { 60, 0, 0 };
         weaponDamages = new float[] { 0.1f, 0.25f, 0.4f };
         fireRates = new float[] { 1.5f, 0.8f, 2.0f };
@@ -133,7 +153,7 @@ public class AIBotController : MonoBehaviourPunCallbacks
             if (isSlotTaken == false)
             {
                 mySlot = i;
-                displayColor.viewID[i] = photonView.ViewID;
+                //displayColor.viewID[i] = photonView.ViewID;
                 break;
             }
         }
@@ -148,12 +168,29 @@ public class AIBotController : MonoBehaviourPunCallbacks
     [PunRPC]
     void BotClaimColor(int slotIndex, int botViewID)
     {
-        DisplayColor myDC = this.GetComponent<DisplayColor>();
+        // 1. Tell EVERY player's brain that this slot is now claimed
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        /*DisplayColor myDC = this.GetComponent<DisplayColor>();
         if (myDC != null)
         {
             myDC.viewID[slotIndex] = botViewID;
             // Force the UI to update so the color and name appear instantly!
             myDC.GetComponent<PhotonView>().RPC("AssignColor", RpcTarget.AllBuffered);
+        }*/
+        for (int i = 0; i < players.Length; i++)
+        {
+            DisplayColor dc = players[i].GetComponent<DisplayColor>();
+            if (dc != null)
+            {
+                dc.viewID[slotIndex] = botViewID;
+            }
+        }
+
+        // 2. Safely tell the UI to update for this specific bot!
+        DisplayColor myDC = this.GetComponent<DisplayColor>();
+        if (myDC != null)
+        {
+            myDC.ChooseColor();
         }
     }
 

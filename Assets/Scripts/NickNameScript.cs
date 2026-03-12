@@ -16,6 +16,7 @@ public class NickNameScript : MonoBehaviourPunCallbacks
     public bool ctbMode = false;
     public bool survival = false;
     public GameObject eliminationPanel;
+    public GameObject[] colorButtons;
     private void Start()
     {
         if (survival == true || ctbMode == true)

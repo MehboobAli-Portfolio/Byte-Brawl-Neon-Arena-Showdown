@@ -16,6 +16,7 @@ public class TeamKillCount : MonoBehaviour
     public Text winnerText;
     private int RedTeamKills;
     private int BlueTeamKills;
+    private bool hasSavedStats = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -205,6 +206,12 @@ public class TeamKillCount : MonoBehaviour
     // --- FIX 1: Made this PUBLIC ---
     public async void SaveMyStats(bool isWinner)
     {
+        if (hasSavedStats == true)
+        {
+            return; // We already saved! Stop the code here.
+        }
+
+        hasSavedStats = true;
         try
         {
             var db = DatabaseManager.Instance.supabase;

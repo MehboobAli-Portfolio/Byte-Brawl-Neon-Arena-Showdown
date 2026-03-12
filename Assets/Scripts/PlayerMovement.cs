@@ -93,8 +93,6 @@ public class PlayerMovement : MonoBehaviour
             if ((nns.survival == true || nns.ctbMode == true) && noRespawn == true)
             {
                 GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
-
-                // --- NEW FIX 1: Do not declare a winner if bots haven't spawned yet! ---
                 if (allPlayers.Length <= 1) return;
 
                 int aliveCount = 0;
@@ -102,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
 
                 foreach (GameObject p in allPlayers)
                 {
-                    // --- NEW FIX 2: Wait until EVERYONE (humans and bots) has officially claimed a color! ---
+                    // 1. Wait for everyone to get their colors
                     DisplayColor dc = p.GetComponent<DisplayColor>();
                     if (dc != null)
                     {
@@ -115,20 +113,26 @@ public class PlayerMovement : MonoBehaviour
                                 if (dc.viewID[i] == pView.ViewID) hasAssignedColor = true;
                             }
                         }
-                        // If someone is still thinking about their color, abort the win check!
                         if (!hasAssignedColor) return;
                     }
 
+                    // --- NEW FIX: Bulletproof Alive Check! ---
                     bool pIsDead = false;
 
-                    PlayerMovement pm = p.GetComponent<PlayerMovement>();
-                    if (pm != null) pIsDead = pm.isDead;
-                    else
+                    if (p.GetComponent<AIBotController>() != null)
                     {
+                        // IT IS A BOT! Only trust its Animator to see if it is dead.
                         Animator pAnim = p.GetComponent<Animator>();
                         if (pAnim != null) pIsDead = pAnim.GetBool("Dead");
                     }
+                    else
+                    {
+                        // IT IS A HUMAN! Trust the PlayerMovement script.
+                        PlayerMovement pm = p.GetComponent<PlayerMovement>();
+                        if (pm != null) pIsDead = pm.isDead;
+                    }
 
+                    // 3. Count who is actually alive
                     if (!pIsDead)
                     {
                         aliveCount++;
@@ -144,6 +148,7 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
 
+                // 4. Declare the Winner if only 1 person is left!
                 if (aliveCount <= 1)
                 {
                     if (nns.survival == true) Canvas.GetComponent<KillCount>().SurvivalWinner(lastAliveName);
@@ -152,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    
+
     IEnumerator JumpAgain()
     {
         yield return new WaitForSeconds(1);
