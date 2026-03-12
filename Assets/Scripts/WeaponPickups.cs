@@ -21,10 +21,25 @@ public class WeaponPickups : MonoBehaviour
         {
             this.GetComponent<PhotonView>().RPC("PlayPickupAudio", RpcTarget.All);
             this.GetComponent<PhotonView>().RPC("TurnOff", RpcTarget.All);
-            other.GetComponent<WeaponChangeAdvanced>().AmmoAmts[weaponType - 1] += ammoRefillAmt;
-            other.GetComponent<WeaponChangeAdvanced>().UpdatePickup();
+
+            WeaponChangeAdvanced humanWeapon = other.GetComponent<WeaponChangeAdvanced>();
+            if (humanWeapon != null)
+            {
+                // Give ammo to Human
+                humanWeapon.AmmoAmts[weaponType - 1] += ammoRefillAmt;
+                humanWeapon.UpdatePickup();
+            }
+            else
+            {
+                AIBotController botWeapon = other.GetComponent<AIBotController>();
+                if (botWeapon != null)
+                {
+                    // Give ammo to Bot, and tell it WHICH gun it just picked up (0, 1, or 2)
+                    botWeapon.RefillAmmo(weaponType - 1, ammoRefillAmt);
+                }
+            }
         }
-	}
+    }
 
     [PunRPC]
     void PlayPickupAudio()

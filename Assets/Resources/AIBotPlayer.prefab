@@ -2424,16 +2424,16 @@ GameObject:
   - component: {fileID: 845393491610079509}
   - component: {fileID: 4020478287412394190}
   - component: {fileID: 7732062124062763199}
-  - component: {fileID: 6556437962331159774}
   - component: {fileID: 3972373321477662197}
-  - component: {fileID: 7321856816747963426}
   - component: {fileID: 3632175782130527337}
   - component: {fileID: 9094092695079563314}
   - component: {fileID: 4809045526409748052}
   - component: {fileID: -8971969083556660857}
   - component: {fileID: 793750176740762344}
+  - component: {fileID: -7893020470054778262}
+  - component: {fileID: -7880126867719924766}
   m_Layer: 0
-  m_Name: YBot
+  m_Name: AIBotPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2533,24 +2533,6 @@ CapsuleCollider:
   m_Height: 1.78
   m_Direction: 1
   m_Center: {x: 0, y: 0.94, z: 0}
---- !u!114 &6556437962331159774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2995699595682416959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2a59940a040a6f4fb5a551a9cb5f879, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 10
-  rotateSpeed: 100
-  isDead: 0
-  gameOver: 0
-  noRespawn: 0
-  startChecking: 0
 --- !u!114 &3972373321477662197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2793,56 +2775,6 @@ MonoBehaviour:
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0}
     m_Visible: 1
---- !u!114 &7321856816747963426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2995699595682416959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1d3473795d2dd141b50e953d34bdc51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftHand: {fileID: 1452407622366053755}
-  rightHand: {fileID: 1294943125614103073}
-  leftThumb: {fileID: 8518925703318951041}
-  aimObjects:
-  - {fileID: 6243804746211299896}
-  - {fileID: 4690204497231816701}
-  - {fileID: 891081414936055444}
-  rig: {fileID: 3972373321477662197}
-  leftTargets:
-  - {fileID: 8766154946356502405}
-  - {fileID: 2365016177756085665}
-  - {fileID: 2405261289210349298}
-  rightTargets:
-  - {fileID: 310316319673916330}
-  - {fileID: 4854969180448335436}
-  - {fileID: 5250421007432285747}
-  thumbTargets:
-  - {fileID: 2560685574843471080}
-  - {fileID: 2257581186899016399}
-  - {fileID: 2125153650151283620}
-  weapons:
-  - {fileID: 5461843319225150224}
-  - {fileID: 1179301265420185147}
-  - {fileID: 9102837808016126221}
-  weaponIcons:
-  - {fileID: 21300000, guid: 9fe12b833e400cf40abd4522e7858c1e, type: 3}
-  - {fileID: 21300000, guid: 625995e602cebef4abea0435ec5e8f6b, type: 3}
-  - {fileID: 21300000, guid: b556373108cb08342b9259f5608842aa, type: 3}
-  AmmoAmts: 0a000000fa0000005a000000
-  muzzleFlash:
-  - {fileID: 7428217076763482782}
-  - {fileID: 8911050449434592924}
-  - {fileID: 560586342347723271}
-  damageAmts:
-  - 0.1
-  - 0.3
-  - 0.5
-  isDead: 0
 --- !u!114 &3632175782130527337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3091,6 +3023,55 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!195 &-7893020470054778262
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2995699595682416959}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &-7880126867719924766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2995699595682416959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be2f14722f39364ba8ba40dc2741810, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AIBotController
+  weaponMeshes:
+  - {fileID: 5461843319225150224}
+  - {fileID: 1179301265420185147}
+  - {fileID: 9102837808016126221}
+  currentAmmo: 
+  weaponDamages:
+  - 0.1
+  - 0.25
+  - 0.4
+  fireRates:
+  - 1.5
+  - 0.8
+  - 2
+  dodgeTimer: 2
+  attackRange: 15
 --- !u!1 &3042211142915931872
 GameObject:
   m_ObjectHideFlags: 0

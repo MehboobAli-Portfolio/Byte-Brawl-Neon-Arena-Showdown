@@ -22,6 +22,4 @@ public class PlayerMatchStats : BaseModel
     [Column("score")]
     public int Score { get; set; }
 
-    [Column("team")]
-    public int Team { get; set; }
 }

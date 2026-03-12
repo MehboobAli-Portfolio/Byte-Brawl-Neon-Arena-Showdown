@@ -26,13 +26,22 @@ public class DisplayColor : MonoBehaviourPunCallbacks
         namesObject = GameObject.Find("NamesBG");
         waitForPlayers = GameObject.Find("WaitingBG");
         InvokeRepeating("CheckTime", 1, 1);
-        teamMode = namesObject.GetComponent<NickNameScript>().teamMode;
-        ctbMode = namesObject.GetComponent<NickNameScript>().ctbMode;
-        isRespawn = namesObject.GetComponent<NickNameScript>().survival;
-        GetComponent<PlayerMovement>().noRespawn = isRespawn;
-        if (GetComponent<PlayerMovement>().noRespawn == false)
+
+        if (namesObject != null)
         {
-            GetComponent<PlayerMovement>().noRespawn = ctbMode;
+            teamMode = namesObject.GetComponent<NickNameScript>().teamMode;
+            ctbMode = namesObject.GetComponent<NickNameScript>().ctbMode;
+            isRespawn = namesObject.GetComponent<NickNameScript>().survival;
+        }
+
+        PlayerMovement pm = GetComponent<PlayerMovement>();
+        if (pm != null)
+        {
+            pm.noRespawn = isRespawn;
+            if (pm.noRespawn == false)
+            {
+                pm.noRespawn = ctbMode;
+            }
         }
     }
     private void Update()
@@ -94,11 +103,19 @@ public class DisplayColor : MonoBehaviourPunCallbacks
             if (name == namesObject.GetComponent<NickNameScript>().names[i].text)
             {
                 this.GetComponent<Animator>().SetBool("Dead", false);
-                this.gameObject.GetComponent<WeaponChangeAdvanced>().isDead = false;
-                this.gameObject.GetComponentInChildren<AimLookAtRef>().isDead = false;
                 this.gameObject.layer = LayerMask.NameToLayer("Default");
                 namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.GetComponent<Image>().fillAmount = 1;
 
+                // --- SAFE CHECKS: Only reset human scripts if they exist! ---
+                if (this.gameObject.GetComponent<WeaponChangeAdvanced>() != null)
+                {
+                    this.gameObject.GetComponent<WeaponChangeAdvanced>().isDead = false;
+                }
+
+                if (this.gameObject.GetComponentInChildren<AimLookAtRef>() != null)
+                {
+                    this.gameObject.GetComponentInChildren<AimLookAtRef>().isDead = false;
+                }
             }
         }
     }
@@ -157,9 +174,18 @@ public class DisplayColor : MonoBehaviourPunCallbacks
                 {
                     namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.GetComponent<Image>().fillAmount = 0;
                     this.GetComponent<Animator>().SetBool("Dead",true);
-                    this.gameObject.GetComponent<PlayerMovement>().isDead = true;
-                    this.gameObject.GetComponent<WeaponChangeAdvanced>().isDead = true;
-                    this.gameObject.GetComponentInChildren<AimLookAtRef>().isDead = true;
+                    if (this.gameObject.GetComponent<PlayerMovement>() != null)
+                    {
+                        this.gameObject.GetComponent<PlayerMovement>().isDead = true;
+                    }
+                    if (this.gameObject.GetComponent<WeaponChangeAdvanced>() != null)
+                    {
+                        this.gameObject.GetComponent<WeaponChangeAdvanced>().isDead = true;
+                    }
+                    if (this.gameObject.GetComponentInChildren<AimLookAtRef>() != null)
+                    {
+                        this.gameObject.GetComponentInChildren<AimLookAtRef>().isDead = true;
+                    }
                     namesObject.GetComponent<NickNameScript>().RunMessage(shooterName, name);
                     this.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
                 }
@@ -201,26 +227,43 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     [PunRPC]
     void AssignColor()
     {
+        // --- NEW: Bulletproof Name Check to stop Identity Theft! ---
+        string myName = "";
+        if (this.gameObject.GetComponent<AIBotController>() != null)
+        {
+            // It's a bot! Give it a unique name like "Bot 1001"
+            myName = "Bot " + this.GetComponent<PhotonView>().ViewID;
+        }
+        else
+        {
+            // It's a human! Use their real typed name.
+            myName = this.GetComponent<PhotonView>().Owner.NickName;
+        }
+
         for (int i = 0; i < viewID.Length; i++)
         {
-            if(teamMode == true)
+            if (teamMode == true)
             {
                 if (this.GetComponent<PhotonView>().ViewID == viewID[i])
                 {
                     this.transform.GetChild(1).GetComponent<Renderer>().material.color = teamColors[i];
                     namesObject.GetComponent<NickNameScript>().names[i].gameObject.SetActive(true);
                     namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.SetActive(true);
-                    namesObject.GetComponent<NickNameScript>().names[i].text = this.GetComponent<PhotonView>().Owner.NickName;
+
+                    // Put the fixed name on the UI
+                    namesObject.GetComponent<NickNameScript>().names[i].text = myName;
                 }
             }
-            else if(ctbMode == true)
+            else if (ctbMode == true)
             {
                 if (this.GetComponent<PhotonView>().ViewID == viewID[i])
                 {
                     this.transform.GetChild(1).GetComponent<Renderer>().material.color = ctbColor[i];
                     namesObject.GetComponent<NickNameScript>().names[i].gameObject.SetActive(true);
                     namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.SetActive(true);
-                    namesObject.GetComponent<NickNameScript>().names[i].text = this.GetComponent<PhotonView>().Owner.NickName;
+
+                    // Put the fixed name on the UI
+                    namesObject.GetComponent<NickNameScript>().names[i].text = myName;
                 }
             }
             else if (teamMode == false && ctbMode == false)
@@ -230,17 +273,31 @@ public class DisplayColor : MonoBehaviourPunCallbacks
                     this.transform.GetChild(1).GetComponent<Renderer>().material.color = colors[i];
                     namesObject.GetComponent<NickNameScript>().names[i].gameObject.SetActive(true);
                     namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.SetActive(true);
-                    namesObject.GetComponent<NickNameScript>().names[i].text = this.GetComponent<PhotonView>().Owner.NickName;
+
+                    // Put the fixed name on the UI
+                    namesObject.GetComponent<NickNameScript>().names[i].text = myName;
                 }
             }
         }
     }
+
     [PunRPC]
     void RemoveMe()
     {
+        // --- NEW: Bulletproof Name Check for when they die/leave ---
+        string myName = "";
+        if (this.gameObject.GetComponent<AIBotController>() != null)
+        {
+            myName = "Bot " + this.GetComponent<PhotonView>().ViewID;
+        }
+        else
+        {
+            myName = this.GetComponent<PhotonView>().Owner.NickName;
+        }
+
         for (int i = 0; i < namesObject.gameObject.GetComponent<NickNameScript>().names.Length; i++)
         {
-            if (this.GetComponent<PhotonView>().Owner.NickName==namesObject.GetComponent<NickNameScript>().names[i].text)
+            if (myName == namesObject.GetComponent<NickNameScript>().names[i].text)
             {
                 namesObject.GetComponent<NickNameScript>().names[i].gameObject.SetActive(false);
                 namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.SetActive(false);

@@ -90,10 +90,22 @@ public class WeaponChangeAdvanced : MonoBehaviour
             this.gameObject.layer=LayerMask.NameToLayer("Ignore Raycast");
             if (Physics.Raycast(ray, out hit, 500f))
             {
-                if (hit.transform.gameObject.GetComponent<PhotonView>() != null)
+                PhotonView targetView = hit.transform.gameObject.GetComponent<PhotonView>();
+                if (targetView != null)
                 {
-                    gotShootName = hit.transform.gameObject.GetComponent<PhotonView>().Owner.NickName;
+                    // --- NEW: Bot Check Logic! ---
+                    if (hit.transform.gameObject.GetComponent<AIBotController>() != null)
+                    {
+                        // We shot a Bot! Get its Bot ID.
+                        gotShootName = "Bot " + targetView.ViewID;
+                    }
+                    else
+                    {
+                        // We shot a Human! Get their Owner NickName.
+                        gotShootName = targetView.Owner.NickName;
+                    }
                 }
+                
                 if(hit.transform.gameObject.GetComponent<DisplayColor>() != null)
                 {
                     hit.transform.gameObject.GetComponent<DisplayColor>().DeliverDamage(this.GetComponent<PhotonView>().Owner.NickName,gotShootName, damageAmts[weaponNumber]);

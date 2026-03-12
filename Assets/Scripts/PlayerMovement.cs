@@ -78,17 +78,81 @@ public class PlayerMovement : MonoBehaviour
             InvokeRepeating("CheckforWinner", 10, 3);
         }
     }
-    void Checkforwinner()
+    void CheckforWinner()
     {
-        if (PhotonNetwork.CurrentRoom.PlayerCount <= 1 && GetComponent<NickNameScript>().survival == true && noRespawn == true)
+        if (GameObject.Find("WaitingBG") != null || GameObject.Find("ChoosePanel") != null)
         {
-            Canvas.GetComponent<KillCount>().SurvivalWinner(GetComponent<PhotonView>().Owner.NickName);
+            return;
         }
-        if (PhotonNetwork.CurrentRoom.PlayerCount <= 1 && GetComponent<NickNameScript>().ctbMode == true && noRespawn == true)
+
+        GameObject namesBG = GameObject.Find("NamesBG");
+        if (namesBG != null)
         {
-            Canvas.GetComponent<TeamKillCount>().CTBWinner();
+            NickNameScript nns = namesBG.GetComponent<NickNameScript>();
+
+            if ((nns.survival == true || nns.ctbMode == true) && noRespawn == true)
+            {
+                GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+
+                // --- NEW FIX 1: Do not declare a winner if bots haven't spawned yet! ---
+                if (allPlayers.Length <= 1) return;
+
+                int aliveCount = 0;
+                string lastAliveName = "";
+
+                foreach (GameObject p in allPlayers)
+                {
+                    // --- NEW FIX 2: Wait until EVERYONE (humans and bots) has officially claimed a color! ---
+                    DisplayColor dc = p.GetComponent<DisplayColor>();
+                    if (dc != null)
+                    {
+                        bool hasAssignedColor = false;
+                        PhotonView pView = p.GetComponent<PhotonView>();
+                        if (pView != null)
+                        {
+                            for (int i = 0; i < dc.viewID.Length; i++)
+                            {
+                                if (dc.viewID[i] == pView.ViewID) hasAssignedColor = true;
+                            }
+                        }
+                        // If someone is still thinking about their color, abort the win check!
+                        if (!hasAssignedColor) return;
+                    }
+
+                    bool pIsDead = false;
+
+                    PlayerMovement pm = p.GetComponent<PlayerMovement>();
+                    if (pm != null) pIsDead = pm.isDead;
+                    else
+                    {
+                        Animator pAnim = p.GetComponent<Animator>();
+                        if (pAnim != null) pIsDead = pAnim.GetBool("Dead");
+                    }
+
+                    if (!pIsDead)
+                    {
+                        aliveCount++;
+
+                        PhotonView pv = p.GetComponent<PhotonView>();
+                        if (pv != null)
+                        {
+                            if (p.GetComponent<AIBotController>() != null)
+                                lastAliveName = "Bot " + pv.ViewID;
+                            else if (pv.Owner != null)
+                                lastAliveName = pv.Owner.NickName;
+                        }
+                    }
+                }
+
+                if (aliveCount <= 1)
+                {
+                    if (nns.survival == true) Canvas.GetComponent<KillCount>().SurvivalWinner(lastAliveName);
+                    else if (nns.ctbMode == true) Canvas.GetComponent<TeamKillCount>().CTBWinner();
+                }
+            }
         }
     }
+    
     IEnumerator JumpAgain()
     {
         yield return new WaitForSeconds(1);

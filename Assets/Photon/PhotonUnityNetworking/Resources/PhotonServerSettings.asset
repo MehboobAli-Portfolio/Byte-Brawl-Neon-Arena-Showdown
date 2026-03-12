@@ -72,6 +72,9 @@ MonoBehaviour:
   - Rotator
   - PlayGunSound
   - SyncMatchID
+  - UnlockEnterButtonRPC
+  - BotClaimColor
+  - SyncBotWeapon
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

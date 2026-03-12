@@ -30619,9 +30619,11 @@ MonoBehaviour:
   displayPanel: {fileID: 1065803087}
   messageText: {fileID: 1823134126}
   kills: 000000000000000000000000000000000000000000000000
+  deaths: 
   teamMode: 0
   ctbMode: 0
   survival: 0
+  eliminationPanel: {fileID: 0}
 --- !u!114 &391510302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30678,6 +30680,7 @@ MonoBehaviour:
   seconds: 59
   Canvas: {fileID: 72260487}
   timeStop: 0
+  currentMatchID: -1
 --- !u!114 &391510305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36308,7 +36311,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -20, y: 0}
   m_SizeDelta: {x: 600, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &487486427
@@ -65979,6 +65982,7 @@ MonoBehaviour:
   hint1: {fileID: 487486425}
   hint2: {fileID: 218901035}
   enterButton: {fileID: 1073749810}
+  waitTimer: 60
 --- !u!114 &870497389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85291,7 +85295,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -88.8, y: -2.1}
-  m_SizeDelta: {x: 600, y: 35}
+  m_SizeDelta: {x: 600, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1116570113
 MonoBehaviour:

@@ -30608,8 +30608,11 @@ MonoBehaviour:
   displayPanel: {fileID: 1065803087}
   messageText: {fileID: 1823134126}
   kills: 000000000000000000000000000000000000000000000000
+  deaths: 
   teamMode: 1
   ctbMode: 0
+  survival: 0
+  eliminationPanel: {fileID: 0}
 --- !u!114 &391510302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30666,6 +30669,7 @@ MonoBehaviour:
   seconds: 59
   Canvas: {fileID: 72260487}
   timeStop: 0
+  currentMatchID: -1
 --- !u!114 &391510305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36288,7 +36292,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -20, y: 0}
   m_SizeDelta: {x: 600, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &487486427
@@ -65880,6 +65884,7 @@ MonoBehaviour:
   hint1: {fileID: 487486425}
   hint2: {fileID: 218901035}
   enterButton: {fileID: 1073749810}
+  waitTimer: 60
 --- !u!114 &870497389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85034,7 +85039,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -88.8, y: -2.1}
-  m_SizeDelta: {x: 600, y: 35}
+  m_SizeDelta: {x: 600, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1116570113
 MonoBehaviour:
@@ -155320,6 +155325,70 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 477544703}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2027477370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2027477372}
+  - component: {fileID: 2027477371}
+  m_Layer: 0
+  m_Name: NavMesh Surface
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2027477371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027477370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 6bb4f3d7fe46b8e42922f40c005a01ff, type: 2}
+  m_BuildHeightMesh: 0
+--- !u!4 &2027477372
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027477370}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 57.53, y: -4.64, z: 1.68}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2028075046
 GameObject:
   m_ObjectHideFlags: 0
@@ -162427,3 +162496,4 @@ SceneRoots:
   - {fileID: 444668208}
   - {fileID: 170946716}
   - {fileID: 46744758}
+  - {fileID: 2027477372}
