@@ -51,6 +51,7 @@ public class LobbyUIManager : MonoBehaviour
                 if (profile.RankTierID == 2) rankName = "Bronze";
                 else if (profile.RankTierID == 3) rankName = "Silver";
                 else if (profile.RankTierID == 4) rankName = "Gold";
+                else if (profile.RankTierID == 5) rankName = "Diamond";
                 // Display the actual word in the UI
                 levelText.text = "Rank: " + rankName;
 

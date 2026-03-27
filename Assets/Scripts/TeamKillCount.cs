@@ -237,13 +237,22 @@ public class TeamKillCount : MonoBehaviour
 
             if (profile != null)
             {
-                // --- NEW MMR MATH LOGIC ---
-                // +100 for every kill. -50 for every death.
-                int matchScore = (myKills * 100) - (myDeaths * 50);
+                // Base combat score
+                int baseScore = (myKills * 30) - (myDeaths * 20);
 
-                // +500 if you win. -250 if you lose.
-                if (isWinner) matchScore += 500;
-                else matchScore -= 250;
+            
+
+                int matchScore = baseScore;
+
+                if (isWinner)
+                {
+                    matchScore += 50; // A small flat bonus for surviving
+                    matchScore = Mathf.RoundToInt(matchScore * 1.5f); // Multiply their total by 1.5x for winning!
+                }
+                else
+                {
+                    matchScore -= 25; // Small penalty for losing
+                }
 
                 // Save to match history
                 var matchStats = new PlayerMatchStats
@@ -267,7 +276,8 @@ public class TeamKillCount : MonoBehaviour
                 if (profile.TotalScore < 0) profile.TotalScore = 0;
 
                 // --- NEW RANKING LOGIC (Based strictly on TotalScore) ---
-                if (profile.TotalScore >= 1500) profile.RankTierID = 4;      // Gold
+                if (profile.TotalScore >= 2000) profile.RankTierID = 5;
+                else if (profile.TotalScore >= 1500) profile.RankTierID = 4;      // Gold
                 else if (profile.TotalScore >= 1000) profile.RankTierID = 3; // Silver
                 else if (profile.TotalScore >= 500) profile.RankTierID = 2;  // Bronze
                 else profile.RankTierID = 1;                                 // Unranked
