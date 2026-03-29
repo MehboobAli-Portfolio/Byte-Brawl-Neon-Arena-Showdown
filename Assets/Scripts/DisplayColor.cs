@@ -152,92 +152,76 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void GunDamage(string shooterName,string name,float damageAmount)
+    void GunDamage(string shooterName, string name, float damageAmount)
     {
+        // --- 1. NEW FIX: PREVENT "GHOST BULLETS" (Kill Trading) ---
+        // Find the shooter in the UI list and check their health
+        int currentShooterIndex = -1;
+        for (int j = 0; j < namesObject.GetComponent<NickNameScript>().names.Length; j++)
+        {
+            if (namesObject.GetComponent<NickNameScript>().names[j].text == shooterName)
+            {
+                currentShooterIndex = j;
+                break;
+            }
+        }
+
+        // If we found the shooter, check if they are already dead
+        if (currentShooterIndex != -1)
+        {
+            Image shooterHealthBar = namesObject.GetComponent<NickNameScript>().healthbars[currentShooterIndex].gameObject.GetComponent<Image>();
+
+            // If the shooter's health is 0, they are dead! IGNORE their delayed bullet!
+            if (shooterHealthBar.fillAmount <= 0f)
+            {
+                return; // This cancels the damage completely.
+            }
+        }
+        // ----------------------------------------------------------
+
+
+        // 2. Existing Team Damage Check (Friendly Fire)
         if (teamMode == true || ctbMode == true)
         {
-            int shooterIndex = -1;
+            int sIndex = -1;
             int targetIndex = -1;
 
-            // Find the UI index for both the shooter and the target
             for (int j = 0; j < namesObject.GetComponent<NickNameScript>().names.Length; j++)
             {
-                if (namesObject.GetComponent<NickNameScript>().names[j].text == shooterName)
-                {
-                    shooterIndex = j;
-                }
-                if (namesObject.GetComponent<NickNameScript>().names[j].text == name)
-                {
-                    targetIndex = j;
-                }
+                if (namesObject.GetComponent<NickNameScript>().names[j].text == shooterName) sIndex = j;
+                if (namesObject.GetComponent<NickNameScript>().names[j].text == name) targetIndex = j;
             }
 
-            // If both players were found, check their teams
-            if (shooterIndex != -1 && targetIndex != -1)
+            if (sIndex != -1 && targetIndex != -1)
             {
-                // Indices 0, 1, 2 are Red Team. Indices 3, 4, 5 are Blue Team.
-                bool shooterIsRedTeam = (shooterIndex <= 2);
+                bool shooterIsRedTeam = (sIndex <= 2);
                 bool targetIsRedTeam = (targetIndex <= 2);
-                bool shooterIsBlueTeam = (shooterIndex > 2);
+                bool shooterIsBlueTeam = (sIndex > 2);
                 bool targetIsBlueTeam = (targetIndex > 2);
-                // If they are on the same team, exit without applying damage
+
                 if ((shooterIsRedTeam && targetIsRedTeam) || (shooterIsBlueTeam && targetIsBlueTeam))
                 {
-                    return;
+                    return; // Stop the damage, they are on the same team
                 }
             }
         }
-        /*for (int i = 0; i < namesObject.GetComponent<NickNameScript>().names.Length; i++)
-        {
-            if (name == namesObject.GetComponent<NickNameScript>().names[i].text)
-            {
-                if (namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.GetComponent<Image>().fillAmount > 0.1f)
-                {
-                    this.GetComponent<Animator>().SetBool("Hit", true);
-                    namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.GetComponent<Image>().fillAmount -= damageAmount;
-                }
-                else
-                {
-                    namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.GetComponent<Image>().fillAmount = 0;
-                    this.GetComponent<Animator>().SetBool("Dead",true);
-                    if (this.gameObject.GetComponent<PlayerMovement>() != null)
-                    {
-                        this.gameObject.GetComponent<PlayerMovement>().isDead = true;
-                    }
-                    if (this.gameObject.GetComponent<WeaponChangeAdvanced>() != null)
-                    {
-                        this.gameObject.GetComponent<WeaponChangeAdvanced>().isDead = true;
-                    }
-                    if (this.gameObject.GetComponentInChildren<AimLookAtRef>() != null)
-                    {
-                        this.gameObject.GetComponentInChildren<AimLookAtRef>().isDead = true;
-                    }
-                    namesObject.GetComponent<NickNameScript>().RunMessage(shooterName, name);
-                    this.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
-                }
-            }
-        }*/
+
+        // 3. Existing Damage Application
         for (int i = 0; i < namesObject.GetComponent<NickNameScript>().names.Length; i++)
         {
             if (name == namesObject.GetComponent<NickNameScript>().names[i].text)
             {
-                // Grab the health bar image so we don't have to type it out over and over
                 Image healthBar = namesObject.GetComponent<NickNameScript>().healthbars[i].gameObject.GetComponent<Image>();
-
-                // Calculate what their health WILL be after this shot hits
                 float resultingHealth = healthBar.fillAmount - damageAmount;
 
                 if (resultingHealth > 0f)
                 {
-                    // They survive the shot! Apply the damage and play the flinch animation
                     this.GetComponent<Animator>().SetBool("Hit", true);
                     healthBar.fillAmount = resultingHealth;
                 }
                 else
                 {
-                    // The shot is fatal! Force the health bar to 0 (completely empty) and kill them
                     healthBar.fillAmount = 0f;
-
                     this.GetComponent<Animator>().SetBool("Dead", true);
 
                     if (this.gameObject.GetComponent<PlayerMovement>() != null)

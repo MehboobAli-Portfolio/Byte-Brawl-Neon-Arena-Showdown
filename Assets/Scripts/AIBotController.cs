@@ -18,11 +18,12 @@ public class AIBotController : MonoBehaviourPunCallbacks
     private int currentWeaponIndex = 0;
     private float nextFireTime;
 
-    [Header("Dodging")]
+    [Header("Dodging & Movement")]
     public float dodgeTimer = 2f;
     private float nextDodgeTime;
     public float attackRange = 15f;
     private Transform targetPickup;
+    private float currentSpeed = 0f; // NEW: Makes animations smooth!
 
     private string botName;
     private bool isRespawning = false;
@@ -32,26 +33,17 @@ public class AIBotController : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        // --- NEW FIX: Teleport to a proper spawn point! ---
         SpawnCharacters spawner = GameObject.FindObjectOfType<SpawnCharacters>();
         if (spawner != null && spawner.spawnPoints.Length > 0)
         {
-            // Pick a unique spawn point so they don't overlap
             int myIndex = GetComponent<PhotonView>().ViewID % spawner.spawnPoints.Length;
-
-            // If the bot uses a NavMeshAgent, we have to Warp it safely
             UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-            if (agent != null)
-            {
-                agent.Warp(spawner.spawnPoints[myIndex].position);
-            }
-            else
-            {
-                this.transform.position = spawner.spawnPoints[myIndex].position;
-            }
+            if (agent != null) agent.Warp(spawner.spawnPoints[myIndex].position);
+            else this.transform.position = spawner.spawnPoints[myIndex].position;
 
             this.transform.rotation = spawner.spawnPoints[myIndex].rotation;
         }
+
         currentAmmo = new int[] { 60, 0, 0 };
         weaponDamages = new float[] { 0.1f, 0.25f, 0.4f };
         fireRates = new float[] { 1.5f, 0.8f, 2.0f };
@@ -79,10 +71,7 @@ public class AIBotController : MonoBehaviourPunCallbacks
         }
 
         EquipBestWeapon();
-
-        // Go back to the old, reliable way that worked yesterday!
         StartCoroutine(AutoPickColor());
-
         InvokeRepeating("FindClosestPlayer", 1f, 1f);
         InvokeRepeating("FindClosestPickup", 1f, 1f);
     }
@@ -126,18 +115,13 @@ public class AIBotController : MonoBehaviourPunCallbacks
 
     IEnumerator AutoPickColor()
     {
-        // 1. PERFECT STAGGER: Use their unique Photon ViewID to space them out by 0.5 seconds each!
-        // Example: ViewID 1001 waits 3.5s. ViewID 1002 waits 4.0s. ViewID 1003 waits 4.5s.
         float myUniqueDelay = 3.0f + ((photonView.ViewID % 100) * 0.5f);
         yield return new WaitForSeconds(myUniqueDelay);
 
         int mySlot = -1;
-
-        // 2. Safely find the first empty color slot
         for (int i = 0; i < displayColor.viewID.Length; i++)
         {
             bool isSlotTaken = false;
-
             GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
             foreach (GameObject p in allPlayers)
             {
@@ -148,50 +132,27 @@ public class AIBotController : MonoBehaviourPunCallbacks
                     break;
                 }
             }
-
-            // Claim it if nobody else has it!
             if (isSlotTaken == false)
             {
                 mySlot = i;
-                //displayColor.viewID[i] = photonView.ViewID;
                 break;
             }
         }
-
-        // 3. Announce it to the UI
-        if (mySlot != -1)
-        {
-            photonView.RPC("BotClaimColor", RpcTarget.AllBuffered, mySlot, photonView.ViewID);
-        }
+        if (mySlot != -1) photonView.RPC("BotClaimColor", RpcTarget.AllBuffered, mySlot, photonView.ViewID);
     }
 
     [PunRPC]
     void BotClaimColor(int slotIndex, int botViewID)
     {
-        // 1. Tell EVERY player's brain that this slot is now claimed
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        /*DisplayColor myDC = this.GetComponent<DisplayColor>();
-        if (myDC != null)
-        {
-            myDC.viewID[slotIndex] = botViewID;
-            // Force the UI to update so the color and name appear instantly!
-            myDC.GetComponent<PhotonView>().RPC("AssignColor", RpcTarget.AllBuffered);
-        }*/
         for (int i = 0; i < players.Length; i++)
         {
             DisplayColor dc = players[i].GetComponent<DisplayColor>();
-            if (dc != null)
-            {
-                dc.viewID[slotIndex] = botViewID;
-            }
+            if (dc != null) dc.viewID[slotIndex] = botViewID;
         }
 
-        // 2. Safely tell the UI to update for this specific bot!
         DisplayColor myDC = this.GetComponent<DisplayColor>();
-        if (myDC != null)
-        {
-            myDC.ChooseColor();
-        }
+        if (myDC != null) myDC.ChooseColor();
     }
 
     void Update()
@@ -201,7 +162,7 @@ public class AIBotController : MonoBehaviourPunCallbacks
         if (gameTimer != null && gameTimer.timeStop == true)
         {
             if (agent.isOnNavMesh) agent.isStopped = true;
-            anim.SetFloat("BlendV", 0);
+            SmoothStop(); // NEW: Smoothly stop animating
             return;
         }
 
@@ -222,12 +183,12 @@ public class AIBotController : MonoBehaviourPunCallbacks
             {
                 if (agent.isOnNavMesh) agent.isStopped = false;
                 agent.SetDestination(targetPickup.position);
-                anim.SetFloat("BlendV", 1);
+                SmoothMove(); // NEW: Smoothly start running
             }
             else
             {
                 if (agent.isOnNavMesh) agent.isStopped = true;
-                anim.SetFloat("BlendV", 0);
+                SmoothStop();
             }
             return;
         }
@@ -257,7 +218,7 @@ public class AIBotController : MonoBehaviourPunCallbacks
                 if (Time.time >= nextDodgeTime)
                 {
                     if (agent.isOnNavMesh) agent.isStopped = false;
-                    anim.SetFloat("BlendV", 1);
+                    SmoothMove();
                     Vector3 randomDir = transform.right * (Random.value > 0.5f ? 1f : -1f);
                     agent.SetDestination(transform.position + (randomDir * 4f));
                     nextDodgeTime = Time.time + dodgeTimer;
@@ -275,14 +236,27 @@ public class AIBotController : MonoBehaviourPunCallbacks
             {
                 if (agent.isOnNavMesh) agent.isStopped = false;
                 agent.SetDestination(targetPlayer.position);
-                anim.SetFloat("BlendV", 1);
+                SmoothMove();
             }
         }
         else
         {
             if (agent.isOnNavMesh) agent.isStopped = true;
-            anim.SetFloat("BlendV", 0);
+            SmoothStop();
         }
+    }
+
+    // --- NEW: Custom Methods to make movement look perfectly natural ---
+    void SmoothMove()
+    {
+        currentSpeed = Mathf.Lerp(currentSpeed, 1f, Time.deltaTime * 5f);
+        anim.SetFloat("BlendV", currentSpeed);
+    }
+
+    void SmoothStop()
+    {
+        currentSpeed = Mathf.Lerp(currentSpeed, 0f, Time.deltaTime * 8f);
+        anim.SetFloat("BlendV", currentSpeed);
     }
 
     bool CanSeeTarget()
@@ -323,17 +297,23 @@ public class AIBotController : MonoBehaviourPunCallbacks
         isRespawning = false;
     }
 
+    // --- NEW TARGETING FIX: Bots will always hunt humans first! ---
     void FindClosestPlayer()
     {
         if (!HasAnyAmmo()) return;
 
+        // This line grabs EVERYONE (Humans and Bots)
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
         float closestDistance = Mathf.Infinity;
         Transform bestTarget = null;
 
         foreach (GameObject player in players)
         {
             if (player == this.gameObject) continue;
+
+            // Keep the Team check! We still don't want them shooting teammates.
+            if (IsTeammate(player)) continue;
 
             bool isDead = false;
             PlayerMovement pm = player.GetComponent<PlayerMovement>();
@@ -346,13 +326,17 @@ public class AIBotController : MonoBehaviourPunCallbacks
 
             if (isDead) continue;
 
+            // Pure distance check: It doesn't matter who or what it is, just how close it is!
             float distance = Vector3.Distance(transform.position, player.transform.position);
+
             if (distance < closestDistance)
             {
                 closestDistance = distance;
                 bestTarget = player.transform;
             }
         }
+
+        // Set the target to whoever was closest
         targetPlayer = bestTarget;
     }
 
@@ -381,14 +365,45 @@ public class AIBotController : MonoBehaviourPunCallbacks
 
     void ShootPlayer()
     {
-        PhotonView targetView = targetPlayer.GetComponent<PhotonView>();
-        if (targetView != null)
-        {
-            string targetName = "";
-            if (targetPlayer.GetComponent<AIBotController>() != null) targetName = "Bot " + targetView.ViewID;
-            else targetName = targetView.Owner.NickName;
+        // 1. Grab the DisplayColor script of the ENEMY we are aiming at
+        DisplayColor targetDC = targetPlayer.GetComponent<DisplayColor>();
 
-            displayColor.DeliverDamage(botName, targetName, weaponDamages[currentWeaponIndex]);
+        if (targetDC != null)
+        {
+            // 2. Tell the ENEMY to take damage from this bot!
+            targetDC.DeliverDamage(botName, "Target", weaponDamages[currentWeaponIndex]);
         }
+    }
+    // --- NEW: Teammate Recognition Logic ---
+    bool IsTeammate(GameObject potentialTarget)
+    {
+        // 1. If we are not in a team mode, everyone is an enemy!
+        if (nns == null || (!nns.teamMode && !nns.ctbMode)) return false;
+
+        int mySlot = -1;
+        int theirSlot = -1;
+
+        DisplayColor myDC = this.GetComponent<DisplayColor>();
+
+        int myViewID = this.GetComponent<PhotonView>().ViewID;
+        int theirViewID = potentialTarget.GetComponent<PhotonView>().ViewID;
+
+        // 2. Find which UI slot we both belong to
+        for (int i = 0; i < myDC.viewID.Length; i++)
+        {
+            if (myDC.viewID[i] == myViewID) mySlot = i;
+            if (myDC.viewID[i] == theirViewID) theirSlot = i;
+        }
+
+        // 3. If slots are valid, check if we are on the same team (0,1,2 = Red | 3,4,5 = Blue)
+        if (mySlot != -1 && theirSlot != -1)
+        {
+            bool amIRed = (mySlot <= 2);
+            bool areTheyRed = (theirSlot <= 2);
+
+            if (amIRed == areTheyRed) return true; // We are on the same team!
+        }
+
+        return false;
     }
 }
