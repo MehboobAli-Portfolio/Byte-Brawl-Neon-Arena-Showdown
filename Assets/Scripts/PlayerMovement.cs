@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private float horizontalInput;
+    private float verticalInput;
+    private float mouseXInput;
     public float moveSpeed = 10f;
     public float rotateSpeed = 100.0f;
     private Rigidbody rb;
@@ -35,17 +38,20 @@ public class PlayerMovement : MonoBehaviour
         if (isDead == false)
         {
             respawnPanel.SetActive(false);
-            Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
 
-            Vector3 rotateY = new Vector3(0, Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime, 0);
-            if (movement != Vector3.zero)
+            // 2. Apply the Physics using fixedDeltaTime
+            Vector3 rotateY = new Vector3(0, mouseXInput * rotateSpeed * Time.fixedDeltaTime, 0);
+
+            if (horizontalInput != 0 || verticalInput != 0)
             {
                 rb.MoveRotation(rb.rotation * Quaternion.Euler(rotateY));
             }
-            rb.MovePosition(rb.position + transform.forward * Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime + transform.right * Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime);
 
-            anim.SetFloat("BlendV", Input.GetAxis("Vertical"));
-            anim.SetFloat("BlendH", Input.GetAxis("Horizontal"));
+            Vector3 moveDir = (transform.forward * verticalInput) + (transform.right * horizontalInput);
+            rb.MovePosition(rb.position + moveDir * moveSpeed * Time.fixedDeltaTime);
+
+            anim.SetFloat("BlendV", verticalInput);
+            anim.SetFloat("BlendH", horizontalInput);
         }
 	}
 
@@ -53,6 +59,10 @@ public class PlayerMovement : MonoBehaviour
 	{
         if (isDead == false)
         {
+            // 1. Always read Input inside Update for perfectly smooth response
+            horizontalInput = Input.GetAxis("Horizontal");
+            verticalInput = Input.GetAxis("Vertical");
+            mouseXInput = Input.GetAxis("Mouse X");
             if (Input.GetButtonDown("Jump") && canJump == true)
             {
                 canJump = false;

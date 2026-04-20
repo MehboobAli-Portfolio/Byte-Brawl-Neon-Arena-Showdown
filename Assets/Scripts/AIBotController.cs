@@ -23,7 +23,7 @@ public class AIBotController : MonoBehaviourPunCallbacks
     private float nextDodgeTime;
     public float attackRange = 15f;
     private Transform targetPickup;
-    private float currentSpeed = 0f; // NEW: Makes animations smooth!
+    private float currentSpeed = 0f; // to make animation smooth when starting and stopping movement
 
     private string botName;
     private bool isRespawning = false;
@@ -211,9 +211,16 @@ public class AIBotController : MonoBehaviourPunCallbacks
 
             if (distance <= attackRange && CanSeeTarget())
             {
+                // --- NEW BENDING FIX FOR AI SPINE ---
                 Vector3 direction = (targetPlayer.position - transform.position).normalized;
-                Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                Vector3 euler = targetRotation.eulerAngles;
+
+                if (euler.x > 180) euler.x -= 360;
+                euler.x = Mathf.Clamp(euler.x, -30f, 30f); // Prevents spine snapping
+
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, euler.y, 0), Time.deltaTime * 5f);
+                // ------------------------------------
 
                 if (Time.time >= nextDodgeTime)
                 {

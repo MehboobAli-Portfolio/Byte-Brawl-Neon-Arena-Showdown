@@ -61,9 +61,13 @@ public class LobbyScript : MonoBehaviourPunCallbacks
 	public override void OnJoinRandomFailed(short returnCode, string message)
 	{
         RoomOptions roomOptions = new RoomOptions();
-		roomOptions.MaxPlayers = 6;
-		PhotonNetwork.CreateRoom("Arena" + Random.Range(1, 1000), roomOptions);
-	}
+        roomOptions.MaxPlayers = 6;
+
+        // --- NEW: Give dropped players 2 minutes (120,000 ms) to reconnect! ---
+        roomOptions.PlayerTtl = 120000;
+
+        PhotonNetwork.CreateRoom("Arena" + Random.Range(1, 1000), roomOptions);
+    }
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
 

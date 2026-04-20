@@ -17,8 +17,19 @@ public class NickNameScript : MonoBehaviourPunCallbacks
     public bool survival = false;
     public GameObject eliminationPanel;
     public GameObject[] colorButtons;
+    private Color[] originalNameColors;
+    private Color[] originalHealthColors;
+    // This dictionary keeps track of the 2-minute doom timers for disconnected players
+    private Dictionary<string, Coroutine> disconnectTimers = new Dictionary<string, Coroutine>();
     private void Start()
     {
+        originalNameColors = new Color[names.Length];
+        originalHealthColors = new Color[healthbars.Length];
+        for (int i = 0; i < names.Length; i++)
+        {
+            originalNameColors[i] = names[i].color;
+            originalHealthColors[i] = healthbars[i].color;
+        }
         if (survival == true || ctbMode == true)
         {
             eliminationPanel.SetActive(false);
@@ -116,15 +127,96 @@ public class NickNameScript : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LoadLevel("Lobby");
     }
-    // --- NEW: Bulletproof Photon Server Trigger ---
+
+    // --- RECONNECTION LOGIC: Handle Internet Loss vs Rage Quitting ---
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
-        // When a defeated player is kicked from the room, check if we are the last one standing!
+        // 1. IsInactive means they LOST CONNECTION but the server is waiting for them
+        if (otherPlayer.IsInactive)
+        {
+            displayPanel.SetActive(true);
+            messageText.text = otherPlayer.NickName + " disconnected! 2 mins to rejoin...";
+            StartCoroutine(SwitchOffMessage());
+
+            // Turn their Name Gray and Healthbar Black, and start the timer
+            for (int i = 0; i < names.Length; i++)
+            {
+                if (names[i].text == otherPlayer.NickName)
+                {
+                    names[i].color = Color.gray;
+                    healthbars[i].color = Color.black;
+
+                    Coroutine doomTimer = StartCoroutine(DisconnectCountdown(i, otherPlayer.NickName));
+                    disconnectTimers[otherPlayer.NickName] = doomTimer;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            // 2. They intentionally clicked "Quit" or their 2 minutes ran out. Eliminate them instantly.
+            ForceEliminatePlayer(otherPlayer.NickName);
+        }
+    }
+    // --- RECONNECTION LOGIC: If they get their internet back and rejoin! ---
+    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+    {
+        if (disconnectTimers.ContainsKey(newPlayer.NickName))
+        {
+            // Stop the 2-minute doom timer!
+            StopCoroutine(disconnectTimers[newPlayer.NickName]);
+            disconnectTimers.Remove(newPlayer.NickName);
+
+            displayPanel.SetActive(true);
+            messageText.text = newPlayer.NickName + " RECONNECTED!";
+            StartCoroutine(SwitchOffMessage());
+
+            // Restore their UI colors back to normal white
+            for (int i = 0; i < names.Length; i++)
+            {
+                if (names[i].text == newPlayer.NickName)
+                {
+                    names[i].color = originalNameColors[i];
+                    healthbars[i].color = originalHealthColors[i];
+                    break;
+                }
+            }
+        }
+    }
+
+    // --- The 2-Minute Waiting Timer ---
+    IEnumerator DisconnectCountdown(int uiIndex, string droppedName)
+    {
+        // Wait exactly 2 minutes
+        yield return new WaitForSeconds(120f);
+
+        // If this code runs, they failed to reconnect in time. 
+        ForceEliminatePlayer(droppedName);
+    }
+
+    // --- Force Elimination if time runs out or they quit ---
+    void ForceEliminatePlayer(string droppedName)
+    {
+        for (int i = 0; i < names.Length; i++)
+        {
+            if (names[i].text == droppedName)
+            {
+                // Force health to 0 and hide their UI entirely
+                healthbars[i].fillAmount = 0;
+                names[i].gameObject.SetActive(false);
+                healthbars[i].gameObject.SetActive(false);
+                break;
+            }
+        }
+
+        displayPanel.SetActive(true);
+        messageText.text = droppedName + " abandoned the match.";
+        StartCoroutine(SwitchOffMessage());
+
+        // Now check if the remaining player is the last one standing for Survival/CTB!
         if (PhotonNetwork.CurrentRoom.PlayerCount <= 1)
         {
-            // Safely grab the Canvas from the Timer script attached to this exact same object
             GameObject myCanvas = this.GetComponent<Timer>().Canvas;
-
             if (myCanvas != null)
             {
                 if (survival == true)

@@ -7,7 +7,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerCheck : MonoBehaviour
 {
-    public int maxPlayerInRoom = 4;
+    public int maxPlayerInRoom = 6;
     public Text currentPlayer;
     public GameObject hint1;
     public GameObject hint2;
