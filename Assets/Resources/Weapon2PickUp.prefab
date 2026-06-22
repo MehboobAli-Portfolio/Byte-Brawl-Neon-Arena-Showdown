@@ -1907,7 +1907,7 @@ GameObject:
   - component: {fileID: 249925778461741534}
   - component: {fileID: 6394694121721130566}
   m_Layer: 0
-  m_Name: Weapon2Pickup
+  m_Name: Weapon2PickUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

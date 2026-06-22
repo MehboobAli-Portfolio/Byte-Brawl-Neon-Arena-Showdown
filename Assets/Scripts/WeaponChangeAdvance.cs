@@ -44,7 +44,8 @@ public class WeaponChangeAdvance : MonoBehaviour
         if (testForWeapons == null)
         {
             var spawner = GameObject.Find("SpawnScript");
-            spawner.GetComponent<SpawnCharacters>().SpawnWeaponStart();
+            // THE FIX: Added the "s" to make it SpawnWeaponsStart()
+            spawner.GetComponent<SpawnCharacters>().SpawnWeaponsStart();
         }
     }
     /*void SetLookAt()

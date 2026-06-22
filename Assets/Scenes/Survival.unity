@@ -30686,7 +30686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Timer
   minutesText: {fileID: 783916413}
   secondsText: {fileID: 861098978}
-  minutes: 1
+  minutes: 4
   seconds: 59
   Canvas: {fileID: 72260487}
   timeStop: 0

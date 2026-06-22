@@ -3070,6 +3070,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be2f14722f39364ba8ba40dc2741810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIBotController
+  botSpeed: 6
   weaponMeshes:
   - {fileID: 5461843319225150224}
   - {fileID: 1179301265420185147}

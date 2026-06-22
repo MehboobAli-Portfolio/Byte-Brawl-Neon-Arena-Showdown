@@ -10,6 +10,9 @@ public class AIBotController : MonoBehaviourPunCallbacks
     private Transform targetPlayer;
     private DisplayColor displayColor;
 
+    [Header("Bot Settings")]
+    public float botSpeed = 5.0f; // NEW: Change this in Inspector to make them faster/slower!
+
     [Header("Weapons (Gun 1, Gun 2, Gun 3)")]
     public GameObject[] weaponMeshes;
     public int[] currentAmmo = { 60, 0, 0 };
@@ -19,50 +22,77 @@ public class AIBotController : MonoBehaviourPunCallbacks
     private float nextFireTime;
 
     [Header("Dodging & Movement")]
-    public float dodgeTimer = 2f;
+    public float dodgeTimer = 2f; // Made dodge slightly faster
     private float nextDodgeTime;
     public float attackRange = 15f;
     private Transform targetPickup;
-    private float currentSpeed = 0f; // to make animation smooth when starting and stopping movement
+    private float currentSpeed = 0f;
 
     private string botName;
     private bool isRespawning = false;
     private NickNameScript nns;
     private SpawnCharacters spawnManager;
-    private Timer gameTimer;
+
+    private static int globalBotSpawnCounter = 0;
 
     void Start()
     {
-        SpawnCharacters spawner = GameObject.FindObjectOfType<SpawnCharacters>();
-        if (spawner != null && spawner.spawnPoints.Length > 0)
-        {
-            int myIndex = GetComponent<PhotonView>().ViewID % spawner.spawnPoints.Length;
-            UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-            if (agent != null) agent.Warp(spawner.spawnPoints[myIndex].position);
-            else this.transform.position = spawner.spawnPoints[myIndex].position;
+        int myBotIndex = globalBotSpawnCounter;
+        globalBotSpawnCounter++;
 
-            this.transform.rotation = spawner.spawnPoints[myIndex].rotation;
+        agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
+        displayColor = GetComponent<DisplayColor>();
+        botName = "Bot " + photonView.ViewID;
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null) rb.isKinematic = true;
+
+        if (agent != null)
+        {
+            agent.speed = botSpeed; // NEW: Uses the variable so you can change it
+            agent.stoppingDistance = 0.5f; // Lowered so they can strafe smoothly
+        }
+
+        GameObject namesBG = GameObject.Find("NamesBG");
+        if (namesBG != null) nns = namesBG.GetComponent<NickNameScript>();
+
+        spawnManager = FindAnyObjectByType<SpawnCharacters>();
+        if (spawnManager == null)
+        {
+            GameObject spawnObj = GameObject.Find("SpawnScript");
+            if (spawnObj != null) spawnManager = spawnObj.GetComponent<SpawnCharacters>();
+        }
+
+        if (spawnManager != null && spawnManager.spawnPoints.Length > 0)
+        {
+            int humanCount = PhotonNetwork.CurrentRoom.PlayerCount;
+            int finalIndex = (myBotIndex + humanCount) % spawnManager.spawnPoints.Length;
+
+            Vector3 exactPos = spawnManager.spawnPoints[finalIndex].position;
+            Vector3 safeSpread = new Vector3(Random.Range(-1.5f, 1.5f), 0, Random.Range(-1.5f, 1.5f));
+            Vector3 testPos = exactPos + safeSpread;
+
+            if (agent != null) agent.enabled = false;
+
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(testPos, out hit, 2f, NavMesh.AllAreas))
+            {
+                transform.position = hit.position;
+            }
+            else
+            {
+                transform.position = exactPos;
+            }
+
+            transform.rotation = spawnManager.spawnPoints[finalIndex].rotation;
+            if (agent != null) agent.enabled = true;
         }
 
         currentAmmo = new int[] { 60, 0, 0 };
         weaponDamages = new float[] { 0.1f, 0.25f, 0.4f };
         fireRates = new float[] { 1.5f, 0.8f, 2.0f };
         gameObject.tag = "Player";
-        agent = GetComponent<NavMeshAgent>();
-        anim = GetComponent<Animator>();
-        displayColor = GetComponent<DisplayColor>();
-
-        botName = "Bot " + photonView.ViewID;
-
-        GameObject namesBG = GameObject.Find("NamesBG");
-        if (namesBG != null)
-        {
-            nns = namesBG.GetComponent<NickNameScript>();
-            gameTimer = namesBG.GetComponent<Timer>();
-        }
-
-        GameObject spawnObj = GameObject.Find("SpawnScript");
-        if (spawnObj != null) spawnManager = spawnObj.GetComponent<SpawnCharacters>();
 
         if (!PhotonNetwork.IsMasterClient)
         {
@@ -72,8 +102,43 @@ public class AIBotController : MonoBehaviourPunCallbacks
 
         EquipBestWeapon();
         StartCoroutine(AutoPickColor());
-        InvokeRepeating("FindClosestPlayer", 1f, 1f);
+        InvokeRepeating("FindClosestPlayer", 0.5f, 0.5f);
         InvokeRepeating("FindClosestPickup", 1f, 1f);
+    }
+    // --- NEW FIX: HOST MIGRATION WAKE-UP & UI REFRESH ---
+    public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
+    {
+        if (newMasterClient == PhotonNetwork.LocalPlayer)
+        {
+            // 1. Turn the NavMeshAgent (movement) back on!
+            if (agent != null) agent.enabled = true;
+
+            // 2. Restart the AI thinking loops!
+            InvokeRepeating("FindClosestPlayer", 0.5f, 0.5f);
+            InvokeRepeating("FindClosestPickup", 1f, 1f);
+
+            // 3. FORCE THE UI TO TURN THE HEALTH BARS BACK ON!
+            int mySlot = -1;
+            DisplayColor myDC = GetComponent<DisplayColor>();
+            if (myDC != null)
+            {
+                for (int i = 0; i < myDC.viewID.Length; i++)
+                {
+                    if (myDC.viewID[i] == photonView.ViewID)
+                    {
+                        mySlot = i;
+                        break;
+                    }
+                }
+                // Resend the buffered RPC so the new host keeps the UI alive
+                if (mySlot != -1)
+                {
+                    photonView.RPC("BotClaimColor", RpcTarget.AllBuffered, mySlot, photonView.ViewID);
+                }
+            }
+
+            Debug.Log("The Master Client left! I am taking control and fixing the UI!");
+        }
     }
 
     public void RefillAmmo(int weaponIndex, int amount)
@@ -157,14 +222,7 @@ public class AIBotController : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        if (!PhotonNetwork.IsMasterClient) return;
-
-        if (gameTimer != null && gameTimer.timeStop == true)
-        {
-            if (agent.isOnNavMesh) agent.isStopped = true;
-            SmoothStop(); // NEW: Smoothly stop animating
-            return;
-        }
+        if (!PhotonNetwork.IsMasterClient || agent == null || anim == null) return;
 
         if (anim.GetBool("Dead") == true)
         {
@@ -183,7 +241,7 @@ public class AIBotController : MonoBehaviourPunCallbacks
             {
                 if (agent.isOnNavMesh) agent.isStopped = false;
                 agent.SetDestination(targetPickup.position);
-                SmoothMove(); // NEW: Smoothly start running
+                SmoothMove();
             }
             else
             {
@@ -211,26 +269,15 @@ public class AIBotController : MonoBehaviourPunCallbacks
 
             if (distance <= attackRange && CanSeeTarget())
             {
-                // --- NEW BENDING FIX FOR AI SPINE ---
-                Vector3 direction = (targetPlayer.position - transform.position).normalized;
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                Vector3 euler = targetRotation.eulerAngles;
-
-                if (euler.x > 180) euler.x -= 360;
-                euler.x = Mathf.Clamp(euler.x, -30f, 30f); // Prevents spine snapping
-
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, euler.y, 0), Time.deltaTime * 5f);
-                // ------------------------------------
-
-                if (Time.time >= nextDodgeTime)
+                // ALWAYS LOOK AT THE PLAYER
+                Vector3 direction = targetPlayer.position - transform.position;
+                direction.y = 0;
+                if (direction != Vector3.zero)
                 {
-                    if (agent.isOnNavMesh) agent.isStopped = false;
-                    SmoothMove();
-                    Vector3 randomDir = transform.right * (Random.value > 0.5f ? 1f : -1f);
-                    agent.SetDestination(transform.position + (randomDir * 4f));
-                    nextDodgeTime = Time.time + dodgeTimer;
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 8f);
                 }
 
+                // SHOOT LOGIC
                 if (Time.time >= nextFireTime)
                 {
                     ShootPlayer();
@@ -238,22 +285,73 @@ public class AIBotController : MonoBehaviourPunCallbacks
                     if (currentAmmo[currentWeaponIndex] <= 0) EquipBestWeapon();
                     nextFireTime = Time.time + fireRates[currentWeaponIndex];
                 }
+
+                // NEW DODGE LOGIC: Strafe side-to-side instead of freezing
+                if (Time.time >= nextDodgeTime)
+                {
+                    if (agent.isOnNavMesh)
+                    {
+                        agent.isStopped = false;
+
+                        // Pick a random side (Left or Right) to strafe
+                        Vector3 randomDir = transform.right * (Random.value > 0.5f ? 1f : -1f);
+                        // Add a tiny bit of forward/backward so they don't get stuck in corners
+                        Vector3 forwardMix = transform.forward * Random.Range(-0.5f, 0.5f);
+
+                        Vector3 dodgePos = transform.position + (randomDir * 4f) + forwardMix;
+
+                        NavMeshHit dodgeHit;
+                        if (NavMesh.SamplePosition(dodgePos, out dodgeHit, 4f, NavMesh.AllAreas))
+                        {
+                            agent.SetDestination(dodgeHit.position);
+                        }
+                    }
+                    nextDodgeTime = Time.time + dodgeTimer;
+                }
+
+                // Control Animations while dodging
+                if (agent.isOnNavMesh)
+                {
+                    if (!agent.pathPending && agent.remainingDistance < 0.5f)
+                    {
+                        agent.isStopped = true;
+                        SmoothStop();
+                    }
+                    else
+                    {
+                        agent.isStopped = false;
+                        SmoothMove();
+                    }
+                }
             }
             else
             {
-                if (agent.isOnNavMesh) agent.isStopped = false;
-                agent.SetDestination(targetPlayer.position);
-                SmoothMove();
+                // Chase the player if they are too far away or hiding
+                if (agent.isOnNavMesh)
+                {
+                    agent.isStopped = false;
+                    agent.SetDestination(targetPlayer.position);
+                    SmoothMove();
+                }
             }
         }
         else
         {
-            if (agent.isOnNavMesh) agent.isStopped = true;
-            SmoothStop();
+            // Patrol if no player is found
+            if (agent.isOnNavMesh)
+            {
+                agent.isStopped = false;
+                SmoothMove();
+
+                if (!agent.pathPending && agent.remainingDistance < 1f && spawnManager != null)
+                {
+                    int randomPoint = Random.Range(0, spawnManager.spawnPoints.Length);
+                    agent.SetDestination(spawnManager.spawnPoints[randomPoint].position);
+                }
+            }
         }
     }
 
-    // --- NEW: Custom Methods to make movement look perfectly natural ---
     void SmoothMove()
     {
         currentSpeed = Mathf.Lerp(currentSpeed, 1f, Time.deltaTime * 5f);
@@ -290,7 +388,23 @@ public class AIBotController : MonoBehaviourPunCallbacks
         if (spawnManager != null && spawnManager.spawnPoints.Length > 0)
         {
             int randomIndex = Random.Range(0, spawnManager.spawnPoints.Length);
-            agent.Warp(spawnManager.spawnPoints[randomIndex].position);
+            Vector3 exactPos = spawnManager.spawnPoints[randomIndex].position;
+            Vector3 safeSpread = new Vector3(Random.Range(-1.5f, 1.5f), 0, Random.Range(-1.5f, 1.5f));
+            Vector3 testPos = exactPos + safeSpread;
+
+            if (agent != null) agent.enabled = false;
+
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(testPos, out hit, 2f, NavMesh.AllAreas))
+            {
+                transform.position = hit.position;
+            }
+            else
+            {
+                transform.position = exactPos;
+            }
+
+            if (agent != null) agent.enabled = true;
         }
 
         anim.SetBool("Dead", false);
@@ -304,14 +418,11 @@ public class AIBotController : MonoBehaviourPunCallbacks
         isRespawning = false;
     }
 
-    // --- NEW TARGETING FIX: Bots will always hunt humans first! ---
     void FindClosestPlayer()
     {
         if (!HasAnyAmmo()) return;
 
-        // This line grabs EVERYONE (Humans and Bots)
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
         float closestDistance = Mathf.Infinity;
         Transform bestTarget = null;
 
@@ -319,7 +430,9 @@ public class AIBotController : MonoBehaviourPunCallbacks
         {
             if (player == this.gameObject) continue;
 
-            // Keep the Team check! We still don't want them shooting teammates.
+            PhotonView pv = player.GetComponent<PhotonView>();
+            if (pv == null) continue;
+
             if (IsTeammate(player)) continue;
 
             bool isDead = false;
@@ -333,7 +446,6 @@ public class AIBotController : MonoBehaviourPunCallbacks
 
             if (isDead) continue;
 
-            // Pure distance check: It doesn't matter who or what it is, just how close it is!
             float distance = Vector3.Distance(transform.position, player.transform.position);
 
             if (distance < closestDistance)
@@ -342,16 +454,28 @@ public class AIBotController : MonoBehaviourPunCallbacks
                 bestTarget = player.transform;
             }
         }
-
-        // Set the target to whoever was closest
         targetPlayer = bestTarget;
     }
 
     void FindClosestPickup()
     {
-        if (HasAnyAmmo()) return;
+        // 1. CHECK IF WE HAVE "GOOD" AMMO IN ANY WEAPON
+        bool hasGoodAmmo = false;
 
-        WeaponPickups[] pickups = FindObjectsOfType<WeaponPickups>();
+        // Gun 0 (e.g., Assault Rifle) - considers 15+ bullets "good"
+        if (currentAmmo[0] > 15) hasGoodAmmo = true;
+
+        // Gun 1 (e.g., Shotgun) - considers 4+ bullets "good"
+        if (currentAmmo.Length > 1 && currentAmmo[1] > 4) hasGoodAmmo = true;
+
+        // Gun 2 (e.g., Sniper/RPG) - considers 2+ bullets "good"
+        if (currentAmmo.Length > 2 && currentAmmo[2] > 1) hasGoodAmmo = true;
+
+        // If the bot has a healthy amount of ammo in ANY gun, keep fighting!
+        if (hasGoodAmmo) return;
+
+        // 2. IF AMMO IS CRITICAL, FIND THE CLOSEST PICKUP
+        WeaponPickups[] pickups = FindObjectsByType<WeaponPickups>(FindObjectsInactive.Exclude);
         float closestDistance = Mathf.Infinity;
         Transform bestPickup = null;
 
@@ -372,43 +496,37 @@ public class AIBotController : MonoBehaviourPunCallbacks
 
     void ShootPlayer()
     {
-        // 1. Grab the DisplayColor script of the ENEMY we are aiming at
         DisplayColor targetDC = targetPlayer.GetComponent<DisplayColor>();
-
-        if (targetDC != null)
-        {
-            // 2. Tell the ENEMY to take damage from this bot!
-            targetDC.DeliverDamage(botName, "Target", weaponDamages[currentWeaponIndex]);
-        }
+        if (targetDC != null) targetDC.DeliverDamage(botName, "Target", weaponDamages[currentWeaponIndex]);
     }
-    // --- NEW: Teammate Recognition Logic ---
+
     bool IsTeammate(GameObject potentialTarget)
     {
-        // 1. If we are not in a team mode, everyone is an enemy!
         if (nns == null || (!nns.teamMode && !nns.ctbMode)) return false;
 
-        int mySlot = -1;
-        int theirSlot = -1;
-
+        int mySlot = -1, theirSlot = -1;
         DisplayColor myDC = this.GetComponent<DisplayColor>();
+        if (myDC == null) return false;
 
-        int myViewID = this.GetComponent<PhotonView>().ViewID;
-        int theirViewID = potentialTarget.GetComponent<PhotonView>().ViewID;
+        PhotonView myPV = this.GetComponent<PhotonView>();
+        PhotonView theirPV = potentialTarget.GetComponent<PhotonView>();
 
-        // 2. Find which UI slot we both belong to
+        if (myPV == null || theirPV == null) return false;
+
+        int myViewID = myPV.ViewID;
+        int theirViewID = theirPV.ViewID;
+
         for (int i = 0; i < myDC.viewID.Length; i++)
         {
             if (myDC.viewID[i] == myViewID) mySlot = i;
             if (myDC.viewID[i] == theirViewID) theirSlot = i;
         }
 
-        // 3. If slots are valid, check if we are on the same team (0,1,2 = Red | 3,4,5 = Blue)
         if (mySlot != -1 && theirSlot != -1)
         {
             bool amIRed = (mySlot <= 2);
             bool areTheyRed = (theirSlot <= 2);
-
-            if (amIRed == areTheyRed) return true; // We are on the same team!
+            if (amIRed == areTheyRed) return true;
         }
 
         return false;

@@ -504,7 +504,7 @@ GameObject:
   - component: {fileID: 2415884601237106787}
   - component: {fileID: 890457101106572482}
   m_Layer: 0
-  m_Name: Weapon3Pickup
+  m_Name: Weapon3PickUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

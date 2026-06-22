@@ -7,19 +7,9 @@ public class WeaponRotate : MonoBehaviour
 {
     public float speed = 20;
 
-    // Update is called once per frame
     void Update()
     {
-        if (GetComponent<PhotonView>().Owner.IsMasterClient) //new
-        {
-            GetComponent<PhotonView>().RPC("Rotator", RpcTarget.All);
-        }
-        //transform.Rotate(0,speed * Time.deltaTime, 0);
-    }
-
-    [PunRPC]
-    void Rotator()
-    {
-		transform.Rotate(0,speed* Time.deltaTime, 0);
+        // NO MORE RPCs! Just spin the weapon locally. This stops the invisible error.
+        transform.Rotate(0, speed * Time.deltaTime, 0);
     }
 }

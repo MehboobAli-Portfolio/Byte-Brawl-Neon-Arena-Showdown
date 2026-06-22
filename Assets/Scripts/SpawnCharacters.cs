@@ -10,29 +10,31 @@ public class SpawnCharacters : MonoBehaviour
     public GameObject[] weapons;
     public Transform[] weaponSpawnPoints;
     public float weaponRespawnTime = 10;
-
-    // Start is called before the first frame update
     void Start()
     {
-       if (PhotonNetwork.IsConnected)
+        if (PhotonNetwork.IsConnected)
         {
-            
-            PhotonNetwork.Instantiate(character.name, spawnPoints[PhotonNetwork.CurrentRoom.PlayerCount - 1].position, spawnPoints[PhotonNetwork.CurrentRoom.PlayerCount - 1].rotation);
-		}
-    }
-	
-	// Update is called once per frame
-	void Update()
-    {
+            // 1. Every human player spawns their own character based on ActorNumber
+            int spawnIndex = (PhotonNetwork.LocalPlayer.ActorNumber - 1) % spawnPoints.Length;
+            Vector3 finalPos = spawnPoints[spawnIndex].position;
+            PhotonNetwork.Instantiate(character.name, finalPos, spawnPoints[spawnIndex].rotation);
 
+            // 2. CRITICAL FIX: Only let the Master Client spawn weapons once
+            // Removing 'GameObject.Find' avoids race conditions during fast connections
+            if (PhotonNetwork.IsMasterClient)
+            {
+                SpawnWeaponsStart();
+            }
+        }
     }
-
     public void SpawnWeaponsStart()
     {
         for (int i = 0; i < weapons.Length; i++)
         {
-            PhotonNetwork.Instantiate(weapons[i].name, weaponSpawnPoints[i].position, weaponSpawnPoints[i].rotation);
+            if (weapons[i] != null && weaponSpawnPoints.Length > i)
+            {
+                PhotonNetwork.Instantiate(weapons[i].name, weaponSpawnPoints[i].position, weaponSpawnPoints[i].rotation);
+            }
         }
-    }    
-    
+    }
 }

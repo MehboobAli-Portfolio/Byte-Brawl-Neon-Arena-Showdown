@@ -27,12 +27,6 @@ PluginImporter:
         SDK: AnySDK
         ScriptingBackend: DotNet
   - first:
-      Editor: Editor
-    second:
-      enabled: 0
-      settings:
-        DefaultValueInitialized: true
-  - first:
       Windows Store Apps: WindowsStoreApps
     second:
       enabled: 1
@@ -45,3 +39,10 @@ PluginImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 119922
+  packageName: PUN 2 - FREE
+  packageVersion: 2.52
+  assetPath: Assets/Photon/PhotonLibs/Metro/Photon3Unity3D.dll
+  uploadId: 817708
